@@ -144,7 +144,7 @@ class LandingPage extends React.Component {
               <GridItem xs={12} sm={12} md={6}>
                 <h1 className={classes.title}>Junk Food to Joy Food</h1>
                 <h4>
-                  Want a live a healthier lifestyle? Start with your food now. Simply input any food items and we will recommend you a more deli and nutritious one!
+                  Want to live a healthier lifestyle? Start with your food now! Simply input any food items and we will recommend you a more deli and nutritious one!
                 </h4>
                 <br />
                 <form style={{ display: "flex" }} onSubmit={this.handleSubmit}>
