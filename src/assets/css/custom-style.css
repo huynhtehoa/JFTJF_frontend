@@ -1,0 +1,131 @@
+.HeaderLinks-tooltip-113 {
+    font-size: 12px !important;
+}
+
+.MuiTypography-body1 {
+    font-size: 13px !important;
+}
+
+.checkedIcon {
+    width: 18px !important;
+    height: 18px !important;
+    border: 1px solid rgba(0, 0, 0, .54);
+    border-radius: 3px;
+}
+
+.MuiCheckbox-colorSecondary.Mui-checked {
+    color: #4a895a !important;
+}
+
+.uncheckedIcon {
+    width: 18px !important;
+    height: 18px !important;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, .54);
+    border-radius: 3px;
+}
+
+.MuiPopover-paper * {
+    margin-bottom: 0 !important;
+}
+
+.cardSearch {
+    margin: 25px 0 10px !important;
+    font-weight: bold !important;
+    border: 1px solid gray;
+    border-radius: 6px;
+    padding: 0.05rem 1rem;
+}
+
+@media only screen and (max-width: 666px) {
+    .scrollUp {
+        display: none !important;
+    }
+}
+
+.MuiCardHeader-title {
+    font-size: 20px !important;
+    font-weight: bold !important;
+}
+
+.card-title {
+    font-size: 24px !important;
+    font-weight: bold !important;
+}
+
+.card-content {
+    font-size: 16px !important;
+    white-space: pre-line !important;
+}
+
+.cardReg .MuiFormControl-fullWidth {
+    margin-bottom: 12px !important;
+}
+
+.cardReg div:nth-child(2) {
+    padding-bottom: 0px !important;
+}
+
+.MuiCardContent-root .MuiTypography-body2 {
+    height: 80px !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+.cardAcc .MuiInputBase-root::after,
+.cardSearch .MuiInputBase-root::after {
+    border-color: #4a895a !important;
+}
+
+.addMoreForm {
+    padding-top: 15px !important;
+}
+
+.addMoreForm .MuiFormLabel-root.Mui-focused {
+    color: #4a895a !important;
+}
+
+.MuiListItem-button:hover {
+    background-color: #4a895a !important;
+}
+
+@media only screen and (min-width: 1200px) {
+    .MuiCardHeader-title {
+        height: 58px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .MuiCardContent-root .MuiTypography-body2 {
+        height: 90px !important;
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+    .MuiCardHeader-title {
+        height: 53px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .MuiCardContent-root .MuiTypography-body2 {
+        height: 90px !important;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .MuiCardHeader-title {
+        height: 95px !important;
+    }
+    .MuiCardContent-root .MuiTypography-body2 {
+        height: 110px !important;
+    }
+}
+
+@media only screen and (max-width: 959px) {
+    .MuiCardHeader-title {
+        height: unset !important;
+    }
+    .MuiCardContent-root .MuiTypography-body2 {
+        height: unset !important;
+    }
+}
