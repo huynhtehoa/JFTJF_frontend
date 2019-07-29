@@ -130,21 +130,20 @@ class AddMore extends React.Component {
         })
     }
 
-    postAll = async e => {
-
-        this.postRecipe(e);
+    postRestaurant = async e => {
 
         e.preventDefault();
-        const { resAddress, resDescription, resImgUrl, resName, resPhone, resWeb } = this.state
+        const { joyfood, resAddress, resDescription, resImgUrl, resName, resPhone, resWeb } = this.state
 
-        let url = 'https://jftjf-backend.herokuapp.com/addjoyfood'
+        let url = 'https://jftjf-backend.herokuapp.com/addrestaurant'
         let data = {
             'resName': resName.toLowerCase(),
             'resDescription': resDescription,
             'resPhone': resPhone,
             'resWeb': resWeb,
             'resAddress': resAddress,
-            'resImgUrl': resImgUrl
+            'resImgUrl': resImgUrl,
+            'joyfood': joyfood.toLowerCase()
         }
         await fetch(url, {
             method: 'POST',
@@ -157,6 +156,11 @@ class AddMore extends React.Component {
 
     }
 
+    postAll = e => {
+        e.preventDefault();
+        this.postRecipe(e);
+        this.postRestaurant(e);
+    }
 
     //
 
