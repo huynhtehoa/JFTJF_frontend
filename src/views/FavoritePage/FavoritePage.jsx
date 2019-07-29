@@ -43,10 +43,16 @@ import { VerticleButton as ScrollUpButton } from "react-scroll-up-button";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import Popover from '@material-ui/core/Popover';
+import Button from '@material-ui/core/Button';
 
 import "assets/css/custom-style.css"
 
 const useStyles = makeStyles(theme => ({
+    root: {
+        ...theme.typography.button,
+        backgroundColor: theme.palette.background.paper,
+        padding: theme.spacing(1),
+    },
     card: {
         maxWidth: 345,
     },
@@ -244,7 +250,7 @@ const FavoritePage = (props) => {
                                         placement={window.innerWidth > 959 ? "top" : "left"}
                                         classes={{ tooltip: classes.tooltip }}
                                     >
-                    <Avatar aria-label="Recipe" style={(data.aurthor_name.charAt(0) == "c") ? {backgroundColor: "red"} : (data.aurthor_name.charAt(0) == "h") ? {backgroundColor: "#4a895a"} : (data.aurthor_name.charAt(0) == "a") ? {backgroundColor: "black"} : {backgroundColor: "lightblue"} }>
+                                        <Avatar aria-label="Recipe" style={(data.aurthor_name.charAt(0) == "c") ? { backgroundColor: "red" } : (data.aurthor_name.charAt(0) == "h") ? { backgroundColor: "#4a895a" } : (data.aurthor_name.charAt(0) == "a") ? { backgroundColor: "black" } : { backgroundColor: "lightblue" }}>
                                             {data.aurthor_name.charAt(0).toUpperCase()}
                                         </Avatar>
                                     </Tooltip>
@@ -311,12 +317,26 @@ const FavoritePage = (props) => {
                                 </Typography>
                             </CardContent>
                             <CardActions disableSpacing>
-                                <IconButton aria-label="Add to favorites" onClick={e => handleLikeClick(e, idx, data.id, data.name)}>
-                                    {(data.is_liked) ? <FavoriteIcon style={{ color: "red" }} /> : <FavoriteIcon />}
-                                </IconButton>
-                                <IconButton aria-label="Share">
-                                    <ShareIcon />
-                                </IconButton>
+                                <Tooltip
+                                    id={`fav-${data.id}`}
+                                    title={(data.is_liked) ? "Remove from favorites" : "Add to favorites"}
+                                    placement={window.innerWidth > 959 ? "top" : "left"}
+                                    classes={{ tooltip: classes.tooltip }}
+                                >
+                                    <IconButton aria-label="Add to favorites" onClick={e => handleLikeClick(e, idx, data.id, data.name)}>
+                                        {(data.is_liked) ? <FavoriteIcon style={{ color: "red" }} /> : <FavoriteIcon />}
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip
+                                    id={`share-${data.id}`}
+                                    title="Share"
+                                    placement={window.innerWidth > 959 ? "top" : "left"}
+                                    classes={{ tooltip: classes.tooltip }}
+                                >
+                                    <IconButton aria-label="Share">
+                                        <ShareIcon />
+                                    </IconButton>
+                                </Tooltip>
                                 <IconButton
                                     className={clsx(newClasses.expand, {
                                         [newClasses.expandOpen]: cardExpanded[idx],
@@ -448,10 +468,16 @@ const FavoritePage = (props) => {
                                     <RenderCard />
                                     :
                                     (
-                                        <div>
-                                            <p>No favorite recipes</p>
-                                            <p><Link to="/discover">Discover</Link> now to find your favorite healthy recipes!</p>
-                                        </div>
+                                        <GridContainer justify="center">
+                                            <GridItem xs={10} sm={10} md={8}>
+                                                <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingBottom: 150 }}>
+                                                    <Typography variant="h6" paragraph>There is no recipe in your favorite list!</Typography>
+                                                    <Button style={{ backgroundColor: "#4a895a" }} size="lg" >
+                                                        <Link to="/discover" style={{ color: "white" }} >Discover Now</Link>
+                                                    </Button>
+                                                </div>
+                                            </GridItem>
+                                        </GridContainer>
                                     )
                             }
                         </GridContainer>

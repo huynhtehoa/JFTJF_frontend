@@ -38,6 +38,14 @@ class AddMore extends React.Component {
             imgUrl: '',
             uploadedFile: [],
             isAdded: false,
+
+            resName: '',
+            resDescription: '',
+            resPhone: '',
+            resAddress: '',
+            resWeb: '',
+            resImgUrl: '',
+            resUploadedFile: [],
         }
     }
 
@@ -99,6 +107,59 @@ class AddMore extends React.Component {
         }
     }
 
+    // For admin restaurant
+
+    handleResImgDrop = files => {
+        this.setState({
+            resUploadedFile: files[0]
+        })
+        this.handleResImgUpload(files[0])
+    }
+
+    handleResImgUpload = async file => {
+        let upload = request
+            .post('https://api.cloudinary.com/v1_1/huynhtehoa/image/upload')
+            .field("upload_preset", 'ekcasjxq')
+            .field("file", file);
+
+        upload.end((err, response) => {
+            if (err) console.error(err)
+            this.setState({
+                resImgUrl: response.body.secure_url,
+            })
+        })
+    }
+
+    postAll = async e => {
+
+        this.postRecipe(e);
+
+        e.preventDefault();
+        const { resAddress, resDescription, resImgUrl, resName, resPhone, resWeb } = this.state
+
+        let url = 'https://jftjf-backend.herokuapp.com/addjoyfood'
+        let data = {
+            'resName': resName.toLowerCase(),
+            'resDescription': resDescription,
+            'resPhone': resPhone,
+            'resWeb': resWeb,
+            'resAddress': resAddress,
+            'resImgUrl': resImgUrl
+        }
+        await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${sessionStorage.getItem('token')}`
+            }
+        })
+
+    }
+
+
+    //
+
     render() {
         const newClasses = makeStyles(theme => ({
             container: {
@@ -117,7 +178,7 @@ class AddMore extends React.Component {
             },
         }));
 
-        const { classes, isLogin, clearToken, name, token, ...rest } = this.props;
+        const { classes, isLogin, clearToken, name, token, isAdmin, ...rest } = this.props;
         if (this.state.isAdded) return <Redirect to='/discover' />
         return (
             <div>
@@ -261,7 +322,7 @@ class AddMore extends React.Component {
                                                             <a className="btn" style={{ color: 'black', textAlign: 'center' }}>
                                                                 <i className="fas fa-camera-retro" />
                                                                 &nbsp;
-                                                                <strong>Drag or click here to upload you image</strong>
+                                                                <strong>Drag or click here to upload your image</strong>
                                                             </a>
                                                         </div>
                                                     }
@@ -272,14 +333,144 @@ class AddMore extends React.Component {
                                 </Col>
                             </Row>
                         </Container>
-
-                        <div style={{ textAlign: 'center' }}>
-                            <Button style={{ backgroundColor: "#4a895a", color: "white", marginBottom: 15 }} size="lg" onClick={this.postRecipe}>
-                                Add Now
+                        {(!isAdmin)
+                            &&
+                            <div style={{ textAlign: 'center' }}>
+                                <Button style={{ backgroundColor: "#4a895a", color: "white", marginBottom: 15 }} size="lg" onClick={this.postRecipe}>
+                                    Add Now
                             </Button>
-                        </div>
-
+                            </div>
+                        }
                     </form>
+
+
+                    {(isAdmin)
+                        &&
+                        <form className={`${classes.container} addMoreForm`}>
+                            <h2>For Restaurant</h2>
+                            <Container>
+                                <Row>
+                                    <Col>
+                                        <TextField
+                                            id="re-name"
+                                            label="Restaurant Name"
+                                            className={newClasses.textField}
+                                            value={this.state.resName}
+                                            onChange={this.handleChange('resName')}
+                                            margin="normal"
+                                            variant="outlined"
+                                            fullWidth
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <TextField
+                                            id="res-des"
+                                            label="Restaurant Description"
+                                            multiline
+                                            fullWidth
+                                            rows="4"
+                                            value={this.state.restaurantDescription}
+                                            onChange={this.handleChange('resDescription')}
+                                            className={classes.textField}
+                                            margin="normal"
+                                            variant="outlined"
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <TextField
+                                            id="res-phone"
+                                            label="Restaurant Phone"
+                                            className={newClasses.textField}
+                                            value={this.state.resPhone}
+                                            onChange={this.handleChange('resPhone')}
+                                            margin="normal"
+                                            variant="outlined"
+                                            fullWidth
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <TextField
+                                            id="res-address"
+                                            label="Restaurant Address"
+                                            className={newClasses.textField}
+                                            value={this.state.resAddress}
+                                            onChange={this.handleChange('resAddress')}
+                                            margin="normal"
+                                            variant="outlined"
+                                            fullWidth
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <TextField
+                                            id="res-web"
+                                            label="Restaurant Website"
+                                            className={newClasses.textField}
+                                            value={this.state.resWeb}
+                                            onChange={this.handleChange('resWeb')}
+                                            margin="normal"
+                                            variant="outlined"
+                                            fullWidth
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col style={{ padding: "15px 0" }}>
+                                        <Dropzone
+                                            onDrop={this.handleResImgDrop}
+                                            accept="image/*"
+                                            multiple={false}
+                                        >
+                                            {({ getRootProps, getInputProps }) => {
+                                                return (
+                                                    <div {...getRootProps()}>
+                                                        <input {...getInputProps()} />
+                                                        {this.state.resImgUrl
+                                                            ?
+                                                            (
+                                                                <div style={{ height: 300, display: 'flex', justifyContent: 'center', alignItems: 'center', border: "1px solid rgba(0, 0, 0, 0.23)", borderRadius: "4px" }}>
+                                                                    <img
+                                                                        width="50%"
+                                                                        height="90%"
+                                                                        src={this.state.resImgUrl}
+                                                                    />
+                                                                </div>
+                                                            )
+                                                            :
+                                                            <div style={{ width: "100%", height: 300, justifyContent: "center", alignItems: "center", display: "flex", border: "1px solid rgba(0, 0, 0, 0.23)", borderRadius: "4px" }}>
+                                                                <a className="btn" style={{ color: 'black', textAlign: 'center' }}>
+                                                                    <i className="fas fa-camera-retro" />
+                                                                    &nbsp;
+                                                                <strong>Drag or click here to upload restaurant image</strong>
+                                                                </a>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                );
+                                            }}
+                                        </Dropzone>
+                                    </Col>
+                                </Row>
+                            </Container>
+                            <div style={{ textAlign: 'center' }}>
+                                <Button style={{ backgroundColor: "#4a895a", color: "white", marginBottom: 15 }} size="lg" onClick={this.postAll}>
+                                    Add All
+                            </Button>
+                            </div>
+                        </form>
+                    }
+
+
+
+
+
                 </div>
                 <Footer />
             </div >

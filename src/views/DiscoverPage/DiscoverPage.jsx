@@ -28,11 +28,11 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -42,6 +42,8 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import { VerticleButton as ScrollUpButton } from "react-scroll-up-button";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import Popover from '@material-ui/core/Popover';
+import Modal from '@material-ui/core/Modal';
+import Button from "components/CustomButtons/Button.jsx";
 
 import "assets/css/custom-style.css"
 
@@ -63,6 +65,16 @@ const useStyles = makeStyles(theme => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  paper: {
+    margin: "auto",
+    position: 'relative',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 4),
+    outline: 'none',
+  },
 }));
 
 const ProfilePage = ({ classes, isLogin, clearToken, name, token, ...rest }) => {
@@ -81,6 +93,7 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, ...rest }) => 
   const [isLoading, setIsLoading] = useState(true)
   const [position, setPosition] = useState({})
   const [isDeleted, setIsDeleted] = useState(false)
+  const [modalToggle, setModalToggle] = useState([])
 
   const handlePopClose = () => {
     setAnchorMs(null)
@@ -88,6 +101,20 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, ...rest }) => 
     setDisliked(false)
     setIsDeleted(false)
     setLikeWithoutLogin(false)
+  }
+
+  const handleModal = idx => {
+    let clone = modalToggle.slice(0)
+    clone[idx] = !clone[idx]
+    setModalToggle(clone)
+  }
+
+  const modalClose = idx => {
+    let clone = []
+    searchData.map(data => {
+      clone.push(false)
+    })
+    setModalToggle(clone)
   }
 
   const handleLikeClick = (e, idx, id, joyfood) => {
@@ -230,6 +257,7 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, ...rest }) => 
     })
     setCardExpanded(clone)
     setMenuOpen(clone)
+    setModalToggle(clone)
     setIsLoading(false)
   }
 
@@ -262,6 +290,7 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, ...rest }) => 
     })
     setCardExpanded(clone)
     setMenuOpen(clone)
+    setModalToggle(clone)
     setIsLoading(false)
   }
 
@@ -313,7 +342,7 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, ...rest }) => 
                     placement={window.innerWidth > 959 ? "top" : "left"}
                     classes={{ tooltip: classes.tooltip }}
                   >
-                    <Avatar aria-label="Recipe" style={(data.aurthor_name.charAt(0) == "c") ? {backgroundColor: "red"} : (data.aurthor_name.charAt(0) == "h") ? {backgroundColor: "#4a895a"} : (data.aurthor_name.charAt(0) == "a") ? {backgroundColor: "black"} : {backgroundColor: "lightblue"} }>
+                    <Avatar aria-label="Recipe" style={(data.aurthor_name.charAt(0) == "c") ? { backgroundColor: "red" } : (data.aurthor_name.charAt(0) == "h") ? { backgroundColor: "#4a895a" } : (data.aurthor_name.charAt(0) == "a") ? { backgroundColor: "black" } : { backgroundColor: "lightblue" }}>
                       {data.aurthor_name.charAt(0).toUpperCase()}
                     </Avatar>
                   </Tooltip>
@@ -380,12 +409,72 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, ...rest }) => 
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
-                <IconButton aria-label="Add to favorites" onClick={e => handleLikeClick(e, idx, data.id, data.name)}>
-                  {(!isLogin) ? <FavoriteIcon /> : (data.is_liked) ? <FavoriteIcon style={{ color: "red" }} /> : <FavoriteIcon />}
-                </IconButton>
-                <IconButton aria-label="Share">
-                  <ShareIcon />
-                </IconButton>
+                <Tooltip
+                  id={`fav-${data.id}`}
+                  title={(data.is_liked) ? "Remove from favorites" : "Add to favorites"}
+                  placement={window.innerWidth > 959 ? "top" : "left"}
+                  classes={{ tooltip: classes.tooltip }}
+                >
+                  <IconButton aria-label="Add to favorites" onClick={e => handleLikeClick(e, idx, data.id, data.name)}>
+                    {(!isLogin) ? <FavoriteIcon /> : (data.is_liked) ? <FavoriteIcon style={{ color: "red" }} /> : <FavoriteIcon />}
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  id={`share-${data.id}`}
+                  title="Share"
+                  placement={window.innerWidth > 959 ? "top" : "left"}
+                  classes={{ tooltip: classes.tooltip }}
+                >
+                  <IconButton aria-label="Share">
+                    <ShareIcon />
+                  </IconButton>
+                </Tooltip>
+
+
+
+
+                <Button style={{ backgroundColor: "#4a895a", color: "white" }} onClick={() => handleModal(idx)}>
+                  Where to get
+                </Button>
+                <Modal
+                  aria-labelledby={`simple-modal-title-${data.id}`}
+                  aria-describedby={`simple-modal-description-${data.id}`}
+                  open={modalToggle[idx]}
+                  onClose={() => modalClose(idx)}
+                >
+                  <Card className={newClasses.paper + " " + "custom-modal"}>
+                    <CardActionArea>
+                      <CardMedia
+                        component="img"
+                        alt="Contemplative Reptile"
+                        height="140"
+                        image="/static/images/cards/contemplative-reptile.jpg"
+                        title="Contemplative Reptile"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          Lizard
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                          across all continents except Antarctica
+                      </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                      <Button size="small" color="primary">
+                        Phone
+                      </Button>
+                      <Button size="small" color="primary">
+                        Website
+                    </Button>
+                    </CardActions>
+                  </Card>
+                </Modal>
+
+
+
+
                 <IconButton
                   className={clsx(newClasses.expand, {
                     [newClasses.expandOpen]: cardExpanded[idx],

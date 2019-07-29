@@ -80,7 +80,8 @@
     padding-top: 15px !important;
 }
 
-.addMoreForm .MuiFormLabel-root.Mui-focused {
+.addMoreForm .MuiFormLabel-root.Mui-focused,
+.cardSearch .Mui-focused {
     color: #4a895a !important;
 }
 
@@ -95,6 +96,7 @@
         align-items: center !important;
         justify-content: center !important;
     }
+
     .MuiCardContent-root .MuiTypography-body2 {
         height: 90px !important;
     }
@@ -107,6 +109,7 @@
         align-items: center !important;
         justify-content: center !important;
     }
+
     .MuiCardContent-root .MuiTypography-body2 {
         height: 90px !important;
     }
@@ -116,6 +119,7 @@
     .MuiCardHeader-title {
         height: 95px !important;
     }
+
     .MuiCardContent-root .MuiTypography-body2 {
         height: 110px !important;
     }
@@ -125,7 +129,17 @@
     .MuiCardHeader-title {
         height: unset !important;
     }
+
     .MuiCardContent-root .MuiTypography-body2 {
         height: unset !important;
     }
+}
+
+.custom-modal {
+    display: flex !important;
+    flex-direction: column !important;
+    margin: auto !important;
+    margin-top: 50px !important;
+    height: 80vh !important;
+    width: 80vw !important;
 }

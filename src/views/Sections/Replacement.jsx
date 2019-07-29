@@ -32,7 +32,6 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -42,6 +41,7 @@ import { VerticleButton as ScrollUpButton } from "react-scroll-up-button";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import Popover from '@material-ui/core/Popover';
+import Button from '@material-ui/core/Button';
 
 import "assets/css/custom-style.css"
 
@@ -228,17 +228,29 @@ const Replacement = props => {
   const RenderNoResults = () => {
     if (!isLogin) {
       return (
-        <div>
-          <p>Currently, we don't have any healthy recipes to replace <i><b>{inputSearch}</b></i></p>
-          <p><Link to="/login-page">Log in</Link> now to create your own recipe!</p>
-        </div>
+        <GridContainer justify="center">
+          <GridItem xs={10} sm={10} md={8}>
+            <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingBottom: 150 }}>
+              <Typography variant="h6" paragraph>Currently, we don't have any healthy recipes for <i style={{ color: "red" }}><b>{inputSearch}</b></i></Typography>
+              <Button style={{ backgroundColor: "#4a895a" }} size="lg" >
+                <Link to="/login-page" style={{ color: "white" }} >Log in and start to create your own recipes!</Link>
+              </Button>
+            </div>
+          </GridItem>
+        </GridContainer>
       )
     } else {
       return (
-        <div>
-          <p>Currently, we don't have any healthy recipes to replace <i><b>{inputSearch}</b></i></p>
-          <p>Click <Link to="/addmore">Add More</Link> now to create your own recipe!</p>
-        </div>
+        <GridContainer justify="center">
+          <GridItem xs={10} sm={10} md={8}>
+            <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingBottom: 150 }}>
+              <Typography variant="h6" paragraph>Currently, we don't have any healthy recipes for <i style={{ color: "red" }}><b>{inputSearch}</b></i></Typography>
+              <Button style={{ backgroundColor: "#4a895a" }} size="lg" >
+                <Link to="/addmore" style={{ color: "white" }} >Add your own recipes now!</Link>
+              </Button>
+            </div>
+          </GridItem>
+        </GridContainer>
       )
     }
   }
@@ -294,7 +306,7 @@ const Replacement = props => {
                       placement={window.innerWidth > 959 ? "top" : "left"}
                       classes={{ tooltip: classes.tooltip }}
                     >
-                    <Avatar aria-label="Recipe" style={(data.aurthor_name.charAt(0) == "c") ? {backgroundColor: "red"} : (data.aurthor_name.charAt(0) == "h") ? {backgroundColor: "#4a895a"} : (data.aurthor_name.charAt(0) == "a") ? {backgroundColor: "black"} : {backgroundColor: "lightblue"} }>
+                      <Avatar aria-label="Recipe" style={(data.aurthor_name.charAt(0) == "c") ? { backgroundColor: "red" } : (data.aurthor_name.charAt(0) == "h") ? { backgroundColor: "#4a895a" } : (data.aurthor_name.charAt(0) == "a") ? { backgroundColor: "black" } : { backgroundColor: "lightblue" }}>
                         {data.aurthor_name.charAt(0).toUpperCase()}
                       </Avatar>
                     </Tooltip>
@@ -361,12 +373,26 @@ const Replacement = props => {
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <IconButton aria-label="Add to favorites" onClick={e => handleLikeClick(e, idx, data.id, data.name)}>
-                    {(!isLogin) ? <FavoriteIcon /> : (data.is_liked) ? <FavoriteIcon style={{ color: "red" }} /> : <FavoriteIcon />}
-                  </IconButton>
-                  <IconButton aria-label="Share">
-                    <ShareIcon />
-                  </IconButton>
+                  <Tooltip
+                    id={`fav-${data.id}`}
+                    title={(data.is_liked) ? "Remove from favorites" : "Add to favorites"}
+                    placement={window.innerWidth > 959 ? "top" : "left"}
+                    classes={{ tooltip: classes.tooltip }}
+                  >
+                    <IconButton aria-label="Add to favorites" onClick={e => handleLikeClick(e, idx, data.id, data.name)}>
+                      {(!isLogin) ? <FavoriteIcon /> : (data.is_liked) ? <FavoriteIcon style={{ color: "red" }} /> : <FavoriteIcon />}
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip
+                    id={`share-${data.id}`}
+                    title="Share"
+                    placement={window.innerWidth > 959 ? "top" : "left"}
+                    classes={{ tooltip: classes.tooltip }}
+                  >
+                    <IconButton aria-label="Share">
+                      <ShareIcon />
+                    </IconButton>
+                  </Tooltip>
                   <IconButton
                     className={clsx(newClasses.expand, {
                       [newClasses.expandOpen]: cardExpanded[idx],
@@ -418,7 +444,7 @@ const Replacement = props => {
         }}
         {...rest}
       />
-      <Parallax small filter image={require("assets/img/discover.jpg")} />
+      <Parallax small filter image={require("assets/img/replacement.jpg")} />
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>

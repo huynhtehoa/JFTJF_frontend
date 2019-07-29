@@ -24,7 +24,7 @@ const App = () => {
   const [token, setToken] = useState('')
   const [isLogin, setLogin] = useState(false)
   const [name, setName] = useState('')
-
+  const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
     const accessToken = (window.location.search.split("=")[0] === "?api_key") ? window.location.search.split("=")[1] : null;
@@ -52,6 +52,7 @@ const App = () => {
     })
     let jsonData = await response.json()
     setName(jsonData.name)
+    setIsAdmin(jsonData.isAdmin)
     setLogin(true)
   }
 
@@ -74,16 +75,16 @@ const App = () => {
   return (
     <Router history={hist}>
       <Switch>
-        <Route exact path="/" component={() => <LandingPage isLogin={isLogin} clearToken={clearToken} name={name} token={token} />} />
+        <Route exact path="/" component={() => <LandingPage isLogin={isLogin} clearToken={clearToken} name={name} token={token} isAdmin={isAdmin} />} />
         <Route exact path="/replacement/:inputSearch" component={Replacement} />
         <Route exact path="/favorite/" component={FavoritePage} />
-        <Route exact path="/addmore" component={() => <AddMore isLogin={isLogin} clearToken={clearToken} name={name} token={token} />} />
-        <Route exact path="/register-page" component={() => <RegisterPage token={token} name={name} isLogin={isLogin} />} />
-        <Route exact path="/login-page" component={() => <LoginPage isLogin={isLogin} getWithToken={getWithToken} clearToken={clearToken} name={name} token={token} />} />
+        <Route exact path="/addmore" component={() => <AddMore isLogin={isLogin} clearToken={clearToken} name={name} token={token} isAdmin={isAdmin} />} />
+        <Route exact path="/register-page" component={() => <RegisterPage token={token} isAdmin={isAdmin} name={name} isLogin={isLogin} />} />
+        <Route exact path="/login-page" component={() => <LoginPage isLogin={isLogin} getWithToken={getWithToken} clearToken={clearToken} name={name} token={token} isAdmin={isAdmin} />} />
         <Route exact path="/forget-pw" component={ForgetPw} />
         <Route exact path="/reset-pw/" component={ResetPw} />
         <Route exact path="/change-pw/" component={ChangePw} />
-        <Route exact path="/discover" component={() => <DiscoverPage isLogin={isLogin} getWithToken={getWithToken} clearToken={clearToken} name={name} token={token} />} />
+        <Route exact path="/discover" component={() => <DiscoverPage isLogin={isLogin} getWithToken={getWithToken} clearToken={clearToken} name={name} token={token} isAdmin={isAdmin} />} />
         <Route exact path="/edit/recipe/:dataId" component={EditRecipe} />
         {/* <Route component={NotFound} /> */}
       </Switch>
