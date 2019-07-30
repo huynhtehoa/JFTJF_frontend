@@ -38,9 +38,21 @@ class EditRecipe extends React.Component {
             ingredient: props.location.state.data.ingredient,
             method: props.location.state.data.method,
             imgUrl: props.location.state.data.img_url,
+            resName: props.location.state.data.res_name,
+            resDescription: props.location.state.data.res_description,
+            resWebsite: props.location.state.data.res_website,
+            resAddress: props.location.state.data.res_address,
+            resImgUrl: props.location.state.data.res_imgurl,
+            resPhone: props.location.state.data.res_phone,
             uploadedFile: [],
+            resUploadedFile: [],
             isEdited: false,
+            restaurantData: [],
         }
+    }
+
+    componentDidMount = () => {
+        this.getRestaurant()
     }
 
     handleChange = name => e => {
@@ -69,6 +81,7 @@ class EditRecipe extends React.Component {
             })
         })
     }
+
     editRecipe = async e => {
         e.preventDefault();
         const { id, joyfood, junkfood, tip, nutrition, ingredient, method, imgUrl } = this.state
@@ -90,11 +103,133 @@ class EditRecipe extends React.Component {
                 "Authorization": `Token ${sessionStorage.getItem('token')}`
             }
         })
-        alert(`You've edited ${joyfood.toUpperCase()}`)
+
+        if (!this.props.location.state.isAdmin) {
+            alert(`You've edited ${joyfood.toUpperCase()}`)
+            this.setState({
+                isEdited: true
+            })
+        }
+    }
+
+    // For admin restaurant
+
+    getRestaurant = async () => {
+        let url = `https://jftjf-backend.herokuapp.com/getrestaurant`
+        let response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${sessionStorage.getItem('token')}`
+            }
+        })
+        let jsonData = await response.json()
         this.setState({
-            isEdited: true
+            restaurantData: jsonData.restaurant
         })
     }
+
+
+
+    handleResImgDrop = files => {
+        this.setState({
+            resUploadedFile: files[0]
+        })
+        this.handleResImgUpload(files[0])
+    }
+
+    handleResImgUpload = async file => {
+        let upload = request
+            .post('https://api.cloudinary.com/v1_1/huynhtehoa/image/upload')
+            .field("upload_preset", 'ekcasjxq')
+            .field("file", file);
+
+        upload.end((err, response) => {
+            if (err) console.error(err)
+            this.setState({
+                resImgUrl: response.body.secure_url,
+            })
+        })
+    }
+
+    postRestaurant = async e => {
+        const { id, joyfood, resAddress, resDescription, resImgUrl, resName, resPhone, resWebsite, restaurantData } = this.state
+        let url = `https://jftjf-backend.herokuapp.com/edit/restaurant/${id}`
+        let data = {
+            'resName': resName.toLowerCase(),
+            'resDescription': resDescription,
+            'resPhone': resPhone,
+            'resWeb': resWebsite,
+            'resAddress': resAddress,
+            'resImgUrl': resImgUrl,
+            'joyfood': joyfood.toLowerCase()
+        }
+
+        await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${sessionStorage.getItem('token')}`
+            }
+        })
+    }
+
+    putRestaurant = async e => {
+        const { id, joyfood, resAddress, resDescription, resImgUrl, resName, resPhone, resWebsite, restaurantData } = this.state
+        let url = `https://jftjf-backend.herokuapp.com/edit/restaurant/${id}`
+        let data = {
+            'resName': resName.toLowerCase(),
+            'resDescription': resDescription,
+            'resPhone': resPhone,
+            'resWeb': resWebsite,
+            'resAddress': resAddress,
+            'resImgUrl': resImgUrl,
+            'joyfood': joyfood.toLowerCase()
+        }
+
+        await fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${sessionStorage.getItem('token')}`
+            }
+        })
+    }
+
+    editRestaurant = e => {
+        let temp = false;
+
+        e.preventDefault();
+        const { id, joyfood, restaurantData } = this.state
+
+        for (let i = 0; i < restaurantData.length; i++) {
+            if (restaurantData[i].joyfood_id == id) {
+                temp = true
+            }
+        }
+
+        if (!temp) {
+            this.postRestaurant(e)
+            alert(`You've added ${joyfood.toUpperCase()}`)
+        } else {
+            this.putRestaurant(e)
+            alert(`You've edited ${joyfood.toUpperCase()}`)
+        }
+
+        this.setState({
+            isEdited: true,
+        })
+    }
+
+    editAll = e => {
+        e.preventDefault();
+        this.editRecipe(e);
+        this.editRestaurant(e);
+    }
+
+    //
 
     render() {
 
@@ -169,40 +304,40 @@ class EditRecipe extends React.Component {
                                 </Col>
                             </Row>
                             <Row>
-                            <Row>
-                                <Col>
-                                    <TextField
-                                        id="outlined-tip-flexible"
-                                        label="Description"
-                                        multiline
-                                        fullWidth
-                                        required
-                                        defaultValue={tip}
-                                        rows="4"
-                                        onChange={this.handleChange('tip')}
-                                        className={classes.textField}
-                                        margin="normal"
-                                        variant="outlined"
-                                    />
-                                </Col>
-                            <Row>
-                                <Col>
-                                    <TextField
-                                        id="outlined-ingredient-flexible"
-                                        label="Ingredient"
-                                        multiline
-                                        fullWidth
-                                        required
-                                        defaultValue={ingredient}
-                                        rows="8"
-                                        onChange={this.handleChange('ingredient')}
-                                        className={classes.textField}
-                                        margin="normal"
-                                        variant="outlined"
-                                    />
-                                </Col>
-                            </Row>
-                            </Row>
+                                <Row>
+                                    <Col>
+                                        <TextField
+                                            id="outlined-tip-flexible"
+                                            label="Description"
+                                            multiline
+                                            fullWidth
+                                            required
+                                            defaultValue={tip}
+                                            rows="4"
+                                            onChange={this.handleChange('tip')}
+                                            className={classes.textField}
+                                            margin="normal"
+                                            variant="outlined"
+                                        />
+                                    </Col>
+                                    <Row>
+                                        <Col>
+                                            <TextField
+                                                id="outlined-ingredient-flexible"
+                                                label="Ingredient"
+                                                multiline
+                                                fullWidth
+                                                required
+                                                defaultValue={ingredient}
+                                                rows="8"
+                                                onChange={this.handleChange('ingredient')}
+                                                className={classes.textField}
+                                                margin="normal"
+                                                variant="outlined"
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Row>
                                 <Col>
                                     <TextField
                                         id="outlined-method-flexible"
@@ -274,14 +409,143 @@ class EditRecipe extends React.Component {
                                 </Col>
                             </Row>
                         </Container>
-
-                        <div style={{ textAlign: 'center' }}>
-                            <Button style={{ backgroundColor: "#4a895a", color: "white", marginBottom: 15 }} size="lg" onClick={this.editRecipe}>
-                                Edit Now
+                        {(!this.props.location.state.isAdmin)
+                            &&
+                            <div style={{ textAlign: 'center' }}>
+                                <Button style={{ backgroundColor: "#4a895a", color: "white", marginBottom: 15 }} size="lg" onClick={this.editRecipe}>
+                                    Edit Now
                             </Button>
-                        </div>
-
+                            </div>
+                        }
                     </form>
+
+
+                    {(this.props.location.state.isAdmin)
+                        &&
+                        <form className={`${classes.container} addMoreForm`}>
+                            <h2>For Restaurant</h2>
+                            <Container>
+                                <Row>
+                                    <Col>
+                                        <TextField
+                                            id="re-name"
+                                            label="Restaurant Name"
+                                            className={newClasses.textField}
+                                            value={this.state.resName}
+                                            onChange={this.handleChange('resName')}
+                                            margin="normal"
+                                            variant="outlined"
+                                            fullWidth
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <TextField
+                                            id="res-des"
+                                            label="Restaurant Description"
+                                            multiline
+                                            fullWidth
+                                            rows="4"
+                                            value={this.state.resDescription}
+                                            onChange={this.handleChange('resDescription')}
+                                            className={classes.textField}
+                                            margin="normal"
+                                            variant="outlined"
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <TextField
+                                            id="res-phone"
+                                            label="Restaurant Phone"
+                                            className={newClasses.textField}
+                                            value={this.state.resPhone}
+                                            onChange={this.handleChange('resPhone')}
+                                            margin="normal"
+                                            variant="outlined"
+                                            fullWidth
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <TextField
+                                            id="res-address"
+                                            label="Restaurant Address"
+                                            className={newClasses.textField}
+                                            value={this.state.resAddress}
+                                            onChange={this.handleChange('resAddress')}
+                                            margin="normal"
+                                            variant="outlined"
+                                            fullWidth
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <TextField
+                                            id="res-web"
+                                            label="Restaurant Website"
+                                            className={newClasses.textField}
+                                            value={this.state.resWebsite}
+                                            onChange={this.handleChange('resWebsite')}
+                                            margin="normal"
+                                            variant="outlined"
+                                            fullWidth
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col style={{ padding: "15px 0" }}>
+                                        <Dropzone
+                                            onDrop={this.handleResImgDrop}
+                                            accept="image/*"
+                                            multiple={false}
+                                        >
+                                            {({ getRootProps, getInputProps }) => {
+                                                return (
+                                                    <div {...getRootProps()}>
+                                                        <input {...getInputProps()} />
+                                                        {this.state.resImgUrl
+                                                            ?
+                                                            (
+                                                                <div style={{ height: 300, display: 'flex', justifyContent: 'center', alignItems: 'center', border: "1px solid rgba(0, 0, 0, 0.23)", borderRadius: "4px" }}>
+                                                                    <img
+                                                                        width="50%"
+                                                                        height="90%"
+                                                                        src={this.state.resImgUrl}
+                                                                    />
+                                                                </div>
+                                                            )
+                                                            :
+                                                            <div style={{ width: "100%", height: 300, justifyContent: "center", alignItems: "center", display: "flex", border: "1px solid rgba(0, 0, 0, 0.23)", borderRadius: "4px" }}>
+                                                                <a className="btn" style={{ color: 'black', textAlign: 'center' }}>
+                                                                    <i className="fas fa-camera-retro" />
+                                                                    &nbsp;
+                                                                <strong>Drag or click here to upload restaurant image</strong>
+                                                                </a>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                );
+                                            }}
+                                        </Dropzone>
+                                    </Col>
+                                </Row>
+                            </Container>
+                            <div style={{ textAlign: 'center' }}>
+                                <Button style={{ backgroundColor: "#4a895a", color: "white", marginBottom: 15 }} size="lg" onClick={this.editAll}>
+                                    Edit All
+                            </Button>
+                            </div>
+                        </form>
+                    }
+
+
+
+
                 </div>
                 <Footer />
             </div >

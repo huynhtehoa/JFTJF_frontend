@@ -104,7 +104,7 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { classes, clearToken, isLogin, name, token, ...rest } = this.props;
+    const { classes, clearToken, isLogin, name, token, isAdmin, ...rest } = this.props;
     const { isSearched, inputSearch, searchData } = this.state;
     {
       if (isSearched) {
@@ -118,7 +118,8 @@ class LandingPage extends React.Component {
               name,
               isLogin,
               token,
-              inputSearch
+              inputSearch,
+              isAdmin
             }
           }} 
           />

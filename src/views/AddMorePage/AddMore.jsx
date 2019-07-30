@@ -100,10 +100,12 @@ class AddMore extends React.Component {
                     "Authorization": `Token ${sessionStorage.getItem('token')}`
                 }
             })
-            alert(`You've added ${joyfood.toUpperCase()}`)
-            this.setState({
-                isAdded: true,
-            })
+            if (!this.props.isAdmin) {
+                alert(`You've added ${joyfood.toUpperCase()}`)
+                this.setState({
+                    isAdded: true,
+                })
+            }
         }
     }
 
@@ -153,7 +155,12 @@ class AddMore extends React.Component {
                 "Authorization": `Token ${sessionStorage.getItem('token')}`
             }
         })
-
+        if (!this.props.isAdmin) {
+            alert(`You've added ${joyfood.toUpperCase()}`)
+            this.setState({
+                isAdded: true,
+            })
+        }
     }
 
     postAll = e => {

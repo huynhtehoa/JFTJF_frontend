@@ -142,4 +142,16 @@
     margin-top: 50px !important;
     height: 80vh !important;
     width: 80vw !important;
+    overflow-y: auto !important;
+}
+
+.custom-row {
+    display: flex;
+    flex-direction: row;
+}
+
+@media only screen and (max-width: 959px) {
+    .custom-row {
+        flex-direction: column;
+    }
 }

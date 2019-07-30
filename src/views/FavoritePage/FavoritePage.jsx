@@ -7,6 +7,9 @@ import classNames from "classnames";
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Warning from "@material-ui/icons/Warning";
+import Phone from "@material-ui/icons/Phone";
+import Place from "@material-ui/icons/Place";
+import Public from "@material-ui/icons/Public";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -43,7 +46,9 @@ import { VerticleButton as ScrollUpButton } from "react-scroll-up-button";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import Popover from '@material-ui/core/Popover';
-import Button from '@material-ui/core/Button';
+import Button from "components/CustomButtons/Button.jsx";
+import { Container, Col, Row } from 'reactstrap';
+import Modal from '@material-ui/core/Modal';
 
 import "assets/css/custom-style.css"
 
@@ -73,6 +78,41 @@ const useStyles = makeStyles(theme => ({
     avatar: {
         backgroundColor: red[500],
     },
+    paper: {
+        margin: "auto",
+        position: 'relative',
+        width: 400,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 4),
+        outline: 'none',
+    },
+    tooltip: {
+        padding: "10px 15px",
+        minWidth: "130px",
+        color: "#555555",
+        lineHeight: "1.7em",
+        background: "#FFFFFF",
+        border: "none",
+        borderRadius: "3px",
+        boxShadow:
+            "0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2)",
+        maxWidth: "200px",
+        textAlign: "center",
+        fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+        fontSize: "0.875em",
+        fontStyle: "normal",
+        fontWeight: "400",
+        textShadow: "none",
+        textTransform: "none",
+        letterSpacing: "normal",
+        wordBreak: "normal",
+        wordSpacing: "normal",
+        wordWrap: "normal",
+        whiteSpace: "normal",
+        lineBreak: "auto"
+    }
 }));
 
 const FavoritePage = (props) => {
@@ -91,11 +131,27 @@ const FavoritePage = (props) => {
     const [isLoading, setIsLoading] = useState(true)
     const [position, setPosition] = useState({})
     const [isDeleted, setIsDeleted] = useState(false)
+    const [modalToggle, setModalToggle] = useState([])
+    const [resLocation, setResLocation] = useState([])
 
     const handlePopClose = () => {
         setAnchorMs(null)
         setDisliked(false)
         setIsDeleted(false)
+    }
+
+    const handleModal = idx => {
+        let clone = modalToggle.slice(0)
+        clone[idx] = !clone[idx]
+        setModalToggle(clone)
+    }
+
+    const modalClose = idx => {
+        let clone = []
+        searchData.map(data => {
+            clone.push(false)
+        })
+        setModalToggle(clone)
     }
 
     const onSearchChange = e => {
@@ -231,6 +287,7 @@ const FavoritePage = (props) => {
         })
         setCardExpanded(clone)
         setMenuOpen(clone)
+        setModalToggle(clone)
         setIsLoading(false)
     }
 
@@ -238,6 +295,9 @@ const FavoritePage = (props) => {
 
     let RenderCard = () => {
         return searchData.map((data, idx) => {
+            if (data.res_name) {
+                setResLocation(data.res_address.replace(/ /g, "%20").replace(/,/g, ''))
+            }
             if (data.view_allowed === true) {
                 return (
                     <GridItem key={data.id} xs={12} sm={12} md={6} className={classes.navWrapper}>
@@ -248,7 +308,7 @@ const FavoritePage = (props) => {
                                         id={`avt-${data.id}`}
                                         title={data.aurthor_name}
                                         placement={window.innerWidth > 959 ? "top" : "left"}
-                                        classes={{ tooltip: classes.tooltip }}
+                                        classes={{ tooltip: newClasses.tooltip }}
                                     >
                                         <Avatar aria-label="Recipe" style={(data.aurthor_name.charAt(0) == "c") ? { backgroundColor: "red" } : (data.aurthor_name.charAt(0) == "h") ? { backgroundColor: "#4a895a" } : (data.aurthor_name.charAt(0) == "a") ? { backgroundColor: "black" } : { backgroundColor: "lightblue" }}>
                                             {data.aurthor_name.charAt(0).toUpperCase()}
@@ -288,9 +348,10 @@ const FavoritePage = (props) => {
                                                     pathname: `/edit/recipe/${data.id}`,
                                                     clearToken: props.location.clearToken,
                                                     state: {
-                                                        isLogin: isLogin,
-                                                        data: data,
-                                                        name: name,
+                                                        isLogin,
+                                                        data,
+                                                        name,
+                                                        isAdmin: this.props.isAdmin
                                                     }
                                                 }} >
                                                 <MenuItem>
@@ -321,7 +382,7 @@ const FavoritePage = (props) => {
                                     id={`fav-${data.id}`}
                                     title={(data.is_liked) ? "Remove from favorites" : "Add to favorites"}
                                     placement={window.innerWidth > 959 ? "top" : "left"}
-                                    classes={{ tooltip: classes.tooltip }}
+                                    classes={{ tooltip: newClasses.tooltip }}
                                 >
                                     <IconButton aria-label="Add to favorites" onClick={e => handleLikeClick(e, idx, data.id, data.name)}>
                                         {(data.is_liked) ? <FavoriteIcon style={{ color: "red" }} /> : <FavoriteIcon />}
@@ -331,12 +392,89 @@ const FavoritePage = (props) => {
                                     id={`share-${data.id}`}
                                     title="Share"
                                     placement={window.innerWidth > 959 ? "top" : "left"}
-                                    classes={{ tooltip: classes.tooltip }}
+                                    classes={{ tooltip: newClasses.tooltip }}
                                 >
                                     <IconButton aria-label="Share">
                                         <ShareIcon />
                                     </IconButton>
                                 </Tooltip>
+                                <Tooltip
+                                    id={`loc-${data.id}`}
+                                    title="Get location for this recipe"
+                                    placement={window.innerWidth > 959 ? "top" : "left"}
+                                    classes={{ tooltip: newClasses.tooltip }}
+                                >
+                                    <IconButton aria-label="Get Location" onClick={() => handleModal(idx)}>
+                                        <Place />
+                                    </IconButton>
+                                </Tooltip>
+                                <Modal
+                                    aria-labelledby={`simple-modal-title-${data.id}`}
+                                    aria-describedby={`simple-modal-description-${data.id}`}
+                                    open={modalToggle[idx]}
+                                    onClose={() => modalClose(idx)}
+                                >
+                                    <Card className={newClasses.paper + " " + "custom-modal"}>
+                                        {(!data.res_name)
+                                            ?
+                                            <GridContainer justify="center">
+                                                <GridItem xs={10} sm={10} md={8}>
+                                                    <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingTop: 200 }}>
+                                                        <Typography variant="h6" paragraph>There is no restaurant for this recipe!</Typography>
+                                                        <Typography variant="h6" paragraph>Want to add your premises?</Typography>
+                                                        <Button style={{ backgroundColor: "#4a895a" }} size="small" >
+                                                            <Link to="/discover" style={{ color: "white" }} >Contact us now!</Link>
+                                                        </Button>
+                                                    </div>
+                                                </GridItem>
+                                            </GridContainer>
+                                            :
+                                            <>
+                                                <CardMedia
+                                                    component="img"
+                                                    alt={data.res_name}
+                                                    height="50%"
+                                                    image={data.res_imgurl}
+                                                    title={data.res_name}
+                                                />
+                                                <CardContent>
+                                                    <Typography gutterBottom variant="h5" component="h2">
+                                                        {data.res_name.toUpperCase()}
+                                                    </Typography>
+                                                    <p style={{ fontSize: "16px", color: "black" }}>
+                                                        {data.res_description}
+                                                    </p>
+                                                </CardContent>
+                                                <Container>
+                                                    <Row className="custom-row" >
+                                                        <Col xs={12} sm={12} md={4}>
+                                                            <Button size="small" style={{ backgroundColor: "#4a895a", color: "white" }}>
+                                                                <Place />
+                                                                <a style={{ color: "white" }} href={`https://maps.google.com/?q=${resLocation}`} target="_blank" >
+                                                                    Address
+                                </a>
+                                                            </Button>
+                                                        </Col>
+                                                        <Col xs={12} sm={12} md={4}>
+                                                            <Button size="small" style={{ backgroundColor: "#4a895a", color: "white" }}>
+                                                                <Phone />
+                                                                {data.res_phone}
+                                                            </Button>
+                                                        </Col>
+                                                        <Col xs={12} sm={12} md={4}>
+                                                            <Button size="small" style={{ backgroundColor: "#4a895a" }}>
+                                                                <a style={{ color: "white" }} href={data.res_website} target="_blank">
+                                                                    <Public />
+                                                                    Website
+                                </a>
+                                                            </Button>
+                                                        </Col>
+                                                    </Row>
+                                                </Container>
+                                            </>
+                                        }
+                                    </Card>
+                                </Modal>
                                 <IconButton
                                     className={clsx(newClasses.expand, {
                                         [newClasses.expandOpen]: cardExpanded[idx],
