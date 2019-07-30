@@ -52,7 +52,7 @@ class RegisterPage extends React.Component {
       isEmailExist: false,
       isUsernameExist: false,
       isUsernameShort: false,
-      isPasswordShort: false,
+      isPasswordShort: true,
       isFinished: false,
       isRegistered: false,
       anchorEl: null,
@@ -101,7 +101,7 @@ class RegisterPage extends React.Component {
     this.getAllUser()
     const { username, email, password, confirmPassword, userProfile } = this.state
 
-    if (password.length < 3) {
+    if (password.length < 3 || /^\s*$/.test(password) == true) {
       this.setState({
         isPasswordShort: true,
         anchorEl: e.currentTarget
@@ -172,7 +172,7 @@ class RegisterPage extends React.Component {
       }
     }
 
-    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) == false) {
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) === false) {
       this.setState({
         isValid: false,
         anchorEl: e.currentTarget
@@ -187,10 +187,10 @@ class RegisterPage extends React.Component {
 
     this.setState({
       isFinished: true,
-    }, () => this.allTrueFunction())
+    }, () => this.allTrueFunction(e))
   }
   addUser = async e => {
-    
+
     e.preventDefault();
 
     let url = 'https://jftjf-backend.herokuapp.com/adduser'
@@ -203,16 +203,15 @@ class RegisterPage extends React.Component {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        "content-Type": "application/json",
-        "Authorization": `Token ${this.props.token}`
+        "Content-Type": "application/json",
       }
     })
   }
-  allTrueFunction = () => {
+  allTrueFunction = e => {
     const { isChecked, isMatch, isValid, isEmailExist, isUsernameExist, isPasswordShort, isUsernameShort } = this.state
 
-    if (isMatch === true && isUsernameExist === false && isEmailExist === false && isValid === true && isChecked === true && isPasswordShort == false && isUsernameShort == false) {
-      this.addUser()
+    if (isMatch === true && isUsernameExist === false && isEmailExist === false && isValid === true && isChecked === true && isPasswordShort === false && isUsernameShort === false) {
+      this.addUser(e)
       this.setState({
         isRegistered: true,
       })
