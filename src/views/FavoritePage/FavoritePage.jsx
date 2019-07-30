@@ -10,6 +10,7 @@ import Warning from "@material-ui/icons/Warning";
 import Phone from "@material-ui/icons/Phone";
 import Place from "@material-ui/icons/Place";
 import Public from "@material-ui/icons/Public";
+import RestaurantMenu from "@material-ui/icons/RestaurantMenu";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -400,12 +401,12 @@ const FavoritePage = (props) => {
                                 </Tooltip>
                                 <Tooltip
                                     id={`loc-${data.id}`}
-                                    title="Get location for this recipe"
+                                    title="Where to eat"
                                     placement={window.innerWidth > 959 ? "top" : "left"}
                                     classes={{ tooltip: newClasses.tooltip }}
                                 >
                                     <IconButton aria-label="Get Location" onClick={() => handleModal(idx)}>
-                                        <Place />
+                                        <RestaurantMenu />
                                     </IconButton>
                                 </Tooltip>
                                 <Modal

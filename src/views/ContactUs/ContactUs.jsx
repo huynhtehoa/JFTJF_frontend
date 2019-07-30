@@ -127,12 +127,18 @@ class ContactUs extends React.Component {
             })
             this.setState({
                 isSent: true,
-                anchorEl: e.currentTarget
+                anchorEl: e.currentTarget,
+                name: '',
+                company: '',
+                email: '',
+                phone: '',
+                note: '',
+                business: '',
             })
             setTimeout(() => this.handleClose(), 1500)
         } else {
             this.setState({
-                isSent: true,
+                isSent: false,
             })
         }
     }
