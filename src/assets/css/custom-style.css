@@ -89,6 +89,10 @@
     background-color: #4a895a !important;
 }
 
+.contactUsForm .MuiSelect-select:hover {
+    background-color: transparent !important;
+}
+
 @media only screen and (min-width: 1200px) {
     .MuiCardHeader-title {
         height: 58px !important;

@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import classNames from "classnames";
@@ -24,7 +24,7 @@ function Footer({ ...props }) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="#"
+                href="https://github.com/huynhtehoa"
                 className={classes.block}
                 target="_blank"
               >
@@ -33,21 +33,19 @@ function Footer({ ...props }) {
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="#"
+                href="/"
                 className={classes.block}
-                target="_blank"
               >
                 Blog
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="#"
+              <Link
+                to="/contactus"
                 className={classes.block}
-                target="_blank"
               >
                 Contact us
-              </a>
+              </Link>
             </ListItem>
           </List>
         </div>
@@ -58,7 +56,7 @@ function Footer({ ...props }) {
             className={aClasses}
             target="_blank"
           >
-             &nbsp;Hoa Huynh
+            &nbsp;Hoa Huynh
           </a>
         </div>
       </div>

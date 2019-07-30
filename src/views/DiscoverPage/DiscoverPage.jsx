@@ -360,10 +360,10 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
 
   let RenderCard = () => {
     return searchData.map((data, idx) => {
-      if (data.res_name) {
-        setResLocation(data.res_address.replace(/ /g, "%20").replace(/,/g, ''))
-      }
       if (data.view_allowed === true) {
+        if (data.res_name) {
+          setResLocation(data.res_address.replace(/ /g, "%20").replace(/,/g, ''))
+        }
         return (
           <GridItem key={data.id} xs={12} sm={12} md={6} className={classes.navWrapper}>
             <Card className={classes.card} style={{ border: "1px solid gray" }}>
@@ -488,7 +488,7 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
                             <Typography variant="h6" paragraph>There is no restaurant for this recipe!</Typography>
                             <Typography variant="h6" paragraph>Want to add your premises?</Typography>
                             <Button style={{ backgroundColor: "#4a895a" }} size="small" >
-                              <Link to="/discover" style={{ color: "white" }} >Contact us now!</Link>
+                              <Link to="/contactus" style={{ color: "white" }} >Contact us now!</Link>
                             </Button>
                           </div>
                         </GridItem>

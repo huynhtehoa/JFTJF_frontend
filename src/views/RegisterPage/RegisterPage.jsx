@@ -10,6 +10,7 @@ import Icon from "@material-ui/core/Icon";
 import Email from "@material-ui/icons/Email";
 import Person from "@material-ui/icons/Person";
 import Warning from "@material-ui/icons/Warning";
+import Check from "@material-ui/icons/Check";
 
 import Header from "components/Header/Header.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
@@ -24,7 +25,6 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Check from "@material-ui/icons/Check";
 import SnackbarContent from "components/Snackbar/SnackbarContent.jsx";
 import Popover from '@material-ui/core/Popover';
 
@@ -189,7 +189,10 @@ class RegisterPage extends React.Component {
       isFinished: true,
     }, () => this.allTrueFunction())
   }
-  addUser = async () => {
+  addUser = async e => {
+    
+    e.preventDefault();
+
     let url = 'https://jftjf-backend.herokuapp.com/adduser'
     let data = {
       'name': this.state.username,

@@ -351,10 +351,10 @@ const Replacement = props => {
       <RenderNoResults />
       :
       cloneSearchData.map((data, idx) => {
-        if (data.res_name) {
-          setResLocation(data.res_address.replace(/ /g, "%20").replace(/,/g, ''))
-        }
         if (data.view_allowed) {
+          if (data.res_name) {
+            setResLocation(data.res_address.replace(/ /g, "%20").replace(/,/g, ''))
+          }
           return (
             <GridItem key={data.id} xs={12} sm={12} md={6} className={classes.navWrapper}>
               <Card className={classes.card}>
@@ -454,8 +454,6 @@ const Replacement = props => {
                       <ShareIcon />
                     </IconButton>
                   </Tooltip>
-
-
                   <Tooltip
                   id={`loc-${data.id}`}
                   title="Get location for this recipe"
@@ -481,7 +479,7 @@ const Replacement = props => {
                             <Typography variant="h6" paragraph>There is no restaurant for this recipe!</Typography>
                             <Typography variant="h6" paragraph>Want to add your premises?</Typography>
                             <Button style={{ backgroundColor: "#4a895a" }} size="small" >
-                              <Link to="/discover" style={{ color: "white" }} >Contact us now!</Link>
+                              <Link to="/contactus" style={{ color: "white" }} >Contact us now!</Link>
                             </Button>
                           </div>
                         </GridItem>

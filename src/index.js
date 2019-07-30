@@ -13,6 +13,7 @@ import Replacement from "views/Sections/Replacement.jsx";
 import ForgetPw from "views/Sections/ForgetPw.jsx";
 import ResetPw from "views/Sections/ResetPw.jsx";
 import ChangePw from "views/Sections/ChangePw.jsx";
+import ContactUs from "views/ContactUs/ContactUs.jsx";
 import AddMore from "views/AddMorePage/AddMore.jsx";
 import EditRecipe from "views/EditPage/EditRecipe.jsx"
 import FavoritePage from "views/FavoritePage/FavoritePage.jsx"
@@ -86,6 +87,7 @@ const App = () => {
         <Route exact path="/change-pw/" component={ChangePw} />
         <Route exact path="/discover" component={() => <DiscoverPage isLogin={isLogin} getWithToken={getWithToken} clearToken={clearToken} name={name} token={token} isAdmin={isAdmin} />} />
         <Route exact path="/edit/recipe/:dataId" component={EditRecipe} />
+        <Route exact path="/contactus" component={() => <ContactUs isLogin={isLogin} clearToken={clearToken} name={name} token={token} isAdmin={isAdmin} />} />
         {/* <Route component={NotFound} /> */}
       </Switch>
     </Router>
