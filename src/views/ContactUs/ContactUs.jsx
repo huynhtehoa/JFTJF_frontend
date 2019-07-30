@@ -202,7 +202,7 @@ class ContactUs extends React.Component {
                     }}
                     {...rest}
                 />
-                <Parallax small filter image={require("assets/img/addmore.jpg")} />
+                <Parallax small filter image={require("assets/img/contactus.jpg")} />
                 <div className={classNames(classes.main, classes.mainRaised)}>
                     <form className={`${classes.container} addMoreForm contactUsForm`} onSubmit={this.sendContact} >
                         <Container>
