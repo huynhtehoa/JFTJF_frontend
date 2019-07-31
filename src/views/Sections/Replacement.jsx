@@ -226,7 +226,7 @@ const Replacement = props => {
     })
 
     setIsDeleted(true)
-    setTimeout(() => handlePopClose(), 1500)
+    setTimeout(() => handlePopClose(), 2000)
     setCloneSearchData(searchData)
   }
 
@@ -281,7 +281,7 @@ const Replacement = props => {
       setSearchInput("")
       setCloneSearchData(searchData)
     }
-    setTimeout(() => handlePopClose(), 1500)
+    setTimeout(() => handlePopClose(), 2000)
   }
   const RenderNoResults = () => {
     if (!isLogin) {

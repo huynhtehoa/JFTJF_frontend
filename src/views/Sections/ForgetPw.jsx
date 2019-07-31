@@ -82,7 +82,7 @@ class ForgetPw extends React.Component {
             this.setState({ anchorEl: e.currentTarget, isSuccess: true })
 
         }
-        setTimeout(() => this.handleClose(), 1500)
+        setTimeout(() => this.handleClose(), 2000)
     }
     SnackBar = () => {
         if (!this.state.isValid) {

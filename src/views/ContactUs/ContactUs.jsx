@@ -1,6 +1,4 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
-
 import PropTypes from "prop-types";
 
 import classNames from "classnames";
@@ -31,8 +29,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Container, Row, Col } from 'reactstrap'
 
 import "assets/css/custom-style.css"
-import { FlashOnRounded } from "@material-ui/icons";
-
 class ContactUs extends React.Component {
     constructor(props) {
         super(props);
@@ -78,7 +74,7 @@ class ContactUs extends React.Component {
                 isNameValid: false,
                 anchorEl: e.currentTarget
             })
-            setTimeout(() => this.handleClose(), 1500)
+            setTimeout(() => this.handleClose(), 2000)
         } else {
             this.setState({
                 isNameValid: true,
@@ -86,12 +82,12 @@ class ContactUs extends React.Component {
             })
         }
 
-        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) == false) {
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) === false) {
             this.setState({
                 isEmailValid: false,
                 anchorEl: e.currentTarget
             })
-            setTimeout(() => this.handleClose(), 1500)
+            setTimeout(() => this.handleClose(), 2000)
         } else {
             this.setState({
                 isEmailValid: true,
@@ -135,7 +131,7 @@ class ContactUs extends React.Component {
                 note: '',
                 business: '',
             })
-            setTimeout(() => this.handleClose(), 1500)
+            setTimeout(() => this.handleClose(), 2000)
         } else {
             this.setState({
                 isSent: false,

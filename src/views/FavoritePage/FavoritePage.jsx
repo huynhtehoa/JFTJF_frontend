@@ -236,7 +236,7 @@ const FavoritePage = (props) => {
             }
         })
         setIsDeleted(true)
-        setTimeout(() => handlePopClose(), 1500)
+        setTimeout(() => handlePopClose(), 2000)
         getFavoriteData();
     }
     const sendLike = async (e, idx, id) => {
@@ -257,7 +257,7 @@ const FavoritePage = (props) => {
         })
 
         setDisliked(true)
-        setTimeout(() => handlePopClose(), 1500)
+        setTimeout(() => handlePopClose(), 2000)
         setSearchInput("")
         getFavoriteData()
     }

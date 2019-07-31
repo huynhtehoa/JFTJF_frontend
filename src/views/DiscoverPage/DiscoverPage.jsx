@@ -234,7 +234,7 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
       }
     })
     setIsDeleted(true)
-    setTimeout(() => handlePopClose(), 1500)
+    setTimeout(() => handlePopClose(), 2000)
   }
 
   const sendLike = async (e, idx, id) => {
@@ -266,7 +266,7 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
       setSearchInput("")
       getAllLoginData()
     }
-    setTimeout(() => handlePopClose(), 1500)
+    setTimeout(() => handlePopClose(), 2000)
   }
 
   const getAllData = async () => {

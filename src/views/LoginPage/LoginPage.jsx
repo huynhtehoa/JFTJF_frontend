@@ -83,7 +83,7 @@ class LoginPage extends React.Component {
       this.setState({ loginStatus: true })
     } else {
       this.setState({ anchorEl: e.currentTarget })
-      setTimeout(() => this.handleClose(), 1500)
+      setTimeout(() => this.handleClose(), 2000)
     }
   }
 
@@ -161,21 +161,27 @@ class LoginPage extends React.Component {
                       </Button>
                       <Button
                         justIcon
-                        href="#pablo"
-                        target="_blank"
                         color="transparent"
-                        onClick={e => e.preventDefault()}
+                        onClick={() => getWithToken()}
                       >
-                        <i className={"fab fa-instagram"} />
+                        <a
+                          style={{ color: "white" }}
+                          href="https://jftjf-backend.herokuapp.com/login/facebook"
+                        >
+                          <i className={"fab fa-instagram"} />
+                        </a>
                       </Button>
                       <Button
                         justIcon
-                        href="#pablo"
-                        target="_blank"
                         color="transparent"
-                        onClick={e => e.preventDefault()}
+                        onClick={() => getWithToken()}
                       >
-                        <i className={"fab fa-google-plus-g"} />
+                        <a
+                          style={{ color: "white" }}
+                          href="https://jftjf-backend.herokuapp.com/login/facebook"
+                        >
+                          <i className={"fab fa-google-plus-g"} />
+                        </a>
                       </Button>
                     </div>
                   </CardHeader>

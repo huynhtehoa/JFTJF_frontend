@@ -110,7 +110,7 @@ class ResetPw extends React.Component {
             }
         }
 
-        setTimeout(() => this.handleClose(), 1500)
+        setTimeout(() => this.handleClose(), 2000)
     }
 
     SnackBar = () => {

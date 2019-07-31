@@ -106,7 +106,7 @@ class RegisterPage extends React.Component {
         isPasswordShort: true,
         anchorEl: e.currentTarget
       })
-      setTimeout(() => this.handleClose(), 1500)
+      setTimeout(() => this.handleClose(), 2000)
     } else {
       this.setState({
         isPasswordShort: false,
@@ -119,7 +119,7 @@ class RegisterPage extends React.Component {
         isMatch: false,
         anchorEl: e.currentTarget
       })
-      setTimeout(() => this.handleClose(), 1500)
+      setTimeout(() => this.handleClose(), 2000)
     } else {
       this.setState({
         isMatch: true,
@@ -132,7 +132,7 @@ class RegisterPage extends React.Component {
         isUsernameShort: true,
         anchorEl: e.currentTarget
       })
-      setTimeout(() => this.handleClose(), 1500)
+      setTimeout(() => this.handleClose(), 2000)
     } else {
       this.setState({
         isUsernameShort: false,
@@ -146,7 +146,7 @@ class RegisterPage extends React.Component {
           isUsernameExist: true,
           anchorEl: e.currentTarget
         })
-        setTimeout(() => this.handleClose(), 1500)
+        setTimeout(() => this.handleClose(), 2000)
         break;
       } else {
         this.setState({
@@ -162,7 +162,7 @@ class RegisterPage extends React.Component {
           isEmailExist: true,
           anchorEl: e.currentTarget
         })
-        setTimeout(() => this.handleClose(), 1500)
+        setTimeout(() => this.handleClose(), 2000)
         break;
       } else {
         this.setState({
@@ -177,7 +177,7 @@ class RegisterPage extends React.Component {
         isValid: false,
         anchorEl: e.currentTarget
       })
-      setTimeout(() => this.handleClose(), 1500)
+      setTimeout(() => this.handleClose(), 2000)
     } else {
       this.setState({
         isValid: true,
