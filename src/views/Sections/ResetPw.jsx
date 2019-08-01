@@ -193,7 +193,7 @@ class ResetPw extends React.Component {
                                                         <InputAdornment position="end">
                                                             <Icon className={classes.inputIconsColor}>
                                                                 lock_outline
-                              </Icon>
+                                                            </Icon>
                                                         </InputAdornment>
                                                     ),
                                                     autoComplete: "off"
@@ -215,7 +215,7 @@ class ResetPw extends React.Component {
                                                         <InputAdornment position="end">
                                                             <Icon className={classes.inputIconsColor}>
                                                                 lock_outline
-                              </Icon>
+                                                            </Icon>
                                                         </InputAdornment>
                                                     ),
                                                     autoComplete: "off"
@@ -226,7 +226,7 @@ class ResetPw extends React.Component {
                                         <CardFooter className={classes.cardFooter}>
                                             <Button onClick={this.handleSubmit} style={{ backgroundColor: "#4a895a", color: "white" }} size="lg">
                                                 Send Now
-                      </Button>
+                                            </Button>
                                         </CardFooter>
                                     </form>
                                 </Card>

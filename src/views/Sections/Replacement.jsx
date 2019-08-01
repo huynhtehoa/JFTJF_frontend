@@ -288,7 +288,7 @@ const Replacement = props => {
       return (
         <GridContainer justify="center">
           <GridItem xs={10} sm={10} md={8}>
-            <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingBottom: 150 }}>
+            <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingBottom: 115 }}>
               <Typography variant="h6" paragraph>Currently, we don't have any healthy recipes for <i style={{ color: "red" }}><b>{inputSearch}</b></i></Typography>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Link to="/login-page" >
