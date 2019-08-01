@@ -230,7 +230,7 @@ class LandingPage extends React.Component {
                   <Button justIcon round color="white" style={{ marginTop: 20 }} onClick={this.handleSubmit}>
                     <Search className={classes.searchIcon} />
                   </Button>
-                  <Button justIcon round color="white" style={{ marginTop: 20 }} onClick={this.toggleListen}>
+                  <Button justIcon round color="white" style={{ marginTop: 20, backgroundColor: (this.state.listening) ? "green" : "white", color: (this.state.listening) ? "white" : "#999999" }} onClick={this.toggleListen}>
                     <KeyboardVoice className={classes.searchIcon} />
                   </Button>
                 </form>

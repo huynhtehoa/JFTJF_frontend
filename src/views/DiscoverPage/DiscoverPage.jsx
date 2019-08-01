@@ -489,9 +489,9 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
                             <Typography variant="h6" paragraph>There is no restaurant for this recipe!</Typography>
                             <Typography variant="h6" paragraph>Want to add your premises?</Typography>
                             <Link to="/contactus">
-                              <Button style={{ backgroundColor: "#4a895a", color: "white" }} size="small" >
+                              <Button style={{ backgroundColor: "#4a895a", color: "white" }} >
                                 Contact us now!
-                            </Button>
+                              </Button>
                             </Link>
                           </div>
                         </GridItem>

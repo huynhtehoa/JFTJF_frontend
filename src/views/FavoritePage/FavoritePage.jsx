@@ -423,7 +423,7 @@ const FavoritePage = (props) => {
                                                     <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingTop: 200 }}>
                                                         <Typography variant="h6" paragraph>There is no restaurant for this recipe!</Typography>
                                                         <Typography variant="h6" paragraph>Want to add your premises?</Typography>
-                                                        <Button style={{ backgroundColor: "#4a895a" }} size="small" >
+                                                        <Button style={{ backgroundColor: "#4a895a" }} >
                                                             <Link to="/contactus" style={{ color: "white" }} >Contact us now!</Link>
                                                         </Button>
                                                     </div>
@@ -449,7 +449,7 @@ const FavoritePage = (props) => {
                                                 <Container>
                                                     <Row className="custom-row" >
                                                         <Col xs={12} sm={12} md={4}>
-                                                            <Button size="small" style={{ backgroundColor: "#4a895a", color: "white" }}>
+                                                            <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
                                                                 <Place />
                                                                 <a style={{ color: "white" }} href={`https://maps.google.com/?q=${resLocation}`} target="_blank" >
                                                                     Address
@@ -457,13 +457,13 @@ const FavoritePage = (props) => {
                                                             </Button>
                                                         </Col>
                                                         <Col xs={12} sm={12} md={4}>
-                                                            <Button size="small" style={{ backgroundColor: "#4a895a", color: "white" }}>
+                                                            <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
                                                                 <Phone />
                                                                 {data.res_phone}
                                                             </Button>
                                                         </Col>
                                                         <Col xs={12} sm={12} md={4}>
-                                                            <Button size="small" style={{ backgroundColor: "#4a895a" }}>
+                                                            <Button style={{ backgroundColor: "#4a895a" }}>
                                                                 <a style={{ color: "white" }} href={data.res_website} target="_blank">
                                                                     <Public />
                                                                     Website
