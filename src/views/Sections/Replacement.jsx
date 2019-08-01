@@ -292,8 +292,8 @@ const Replacement = props => {
               <Typography variant="h6" paragraph>Currently, we don't have any healthy recipes for <i style={{ color: "red" }}><b>{inputSearch}</b></i></Typography>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Link to="/login-page" >
-                  <Button style={{ backgroundColor: "#4a895a", color: "white" }} size="lg" >
-                    Log in and start to create your own recipes!
+                  <Button style={{ backgroundColor: "#4a895a", color: "white" }} >
+                    Log in and create your own recipes!
                 </Button>
                 </Link>
               </div>
@@ -309,7 +309,7 @@ const Replacement = props => {
               <Typography variant="h6" paragraph>Currently, we don't have any healthy recipes for <i style={{ color: "red" }}><b>{inputSearch}</b></i></Typography>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Link to="/addmore">
-                  <Button style={{ backgroundColor: "#4a895a", color: "white" }} size="lg" >
+                  <Button style={{ backgroundColor: "#4a895a", color: "white" }} >
                     Add your own recipes now!
                   </Button>
                 </Link>

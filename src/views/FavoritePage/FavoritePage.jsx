@@ -611,7 +611,7 @@ const FavoritePage = (props) => {
                                             <GridItem xs={10} sm={10} md={8}>
                                                 <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingBottom: 150 }}>
                                                     <Typography variant="h6" paragraph>There is no recipe in your favorite list!</Typography>
-                                                    <Button style={{ backgroundColor: "#4a895a" }} size="lg" >
+                                                    <Button style={{ backgroundColor: "#4a895a" }} >
                                                         <Link to="/discover" style={{ color: "white" }} >Discover Now</Link>
                                                     </Button>
                                                 </div>
