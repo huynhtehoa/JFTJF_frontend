@@ -636,7 +636,6 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
                     inputProps={{
                       inputProps: {
                         "aria-label": "Search",
-                        autoFocus: true,
                         required: true,
                         className: classes.searchInput,
                         onChange: onSearchChange,

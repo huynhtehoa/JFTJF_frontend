@@ -635,7 +635,6 @@ const Replacement = props => {
                     inputProps={{
                       inputProps: {
                         "aria-label": "Search",
-                        autoFocus: true,
                         required: true,
                         className: classes.searchInput,
                         onChange: onSearchChange
