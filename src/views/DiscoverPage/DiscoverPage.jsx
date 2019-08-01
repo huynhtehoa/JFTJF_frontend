@@ -488,9 +488,11 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
                           <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingTop: 200 }}>
                             <Typography variant="h6" paragraph>There is no restaurant for this recipe!</Typography>
                             <Typography variant="h6" paragraph>Want to add your premises?</Typography>
-                            <Button style={{ backgroundColor: "#4a895a" }} size="small" >
-                              <Link to="/contactus" style={{ color: "white" }} >Contact us now!</Link>
+                            <Link to="/contactus">
+                              <Button style={{ backgroundColor: "#4a895a", color: "white" }} size="small" >
+                                Contact us now!
                             </Button>
+                            </Link>
                           </div>
                         </GridItem>
                       </GridContainer>
@@ -514,7 +516,7 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
                         <Container>
                           <Row className="custom-row" >
                             <Col xs={12} sm={12} md={4}>
-                              <Button size="small" style={{ backgroundColor: "#4a895a", color: "white" }}>
+                              <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
                                 <Place />
                                 <a style={{ color: "white" }} href={`https://maps.google.com/?q=${resLocation}`} target="_blank" >
                                   Address
@@ -522,18 +524,18 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
                               </Button>
                             </Col>
                             <Col xs={12} sm={12} md={4}>
-                              <Button size="small" style={{ backgroundColor: "#4a895a", color: "white" }}>
+                              <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
                                 <Phone />
                                 {data.res_phone}
                               </Button>
                             </Col>
                             <Col xs={12} sm={12} md={4}>
-                              <Button size="small" style={{ backgroundColor: "#4a895a" }}>
-                                <a style={{ color: "white" }} href={data.res_website} target="_blank">
+                              <a href={data.res_website} target="_blank">
+                                <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
                                   <Public />
                                   Website
-                                </a>
-                              </Button>
+                                </Button>
+                              </a>
                             </Col>
                           </Row>
                         </Container>

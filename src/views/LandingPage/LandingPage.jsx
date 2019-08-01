@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import Search from "@material-ui/icons/Search";
+import KeyboardVoice from "@material-ui/icons/KeyboardVoice";
 
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Header from "components/Header/Header.jsx";
@@ -17,6 +18,13 @@ import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+const recognition = new SpeechRecognition()
+
+recognition.continous = true
+recognition.interimResults = true
+recognition.lang = 'en-US'
 
 const dashboardRoutes = [];
 
@@ -30,6 +38,57 @@ class LandingPage extends React.Component {
       inputSearch: "",
       searchData: [],
       isSearched: false,
+      listening: false
+    }
+  }
+
+  toggleListen = () => {
+    this.setState({
+      listening: !this.state.listening
+    }, this.handleListen)
+  }
+
+  handleListen = () => {
+
+    if (this.state.listening) {
+      recognition.start()
+      recognition.onend = () => {
+        recognition.start()
+      }
+
+    } else {
+      recognition.stop()
+    }
+
+    let finalTranscript = ''
+    recognition.onresult = event => {
+      let interimTranscript = ''
+
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const transcript = event.results[i][0].transcript.toLowerCase();
+        if (event.results[i].isFinal) finalTranscript += transcript + ' ';
+        else interimTranscript += transcript;
+      }
+      document.getElementById('float').value = finalTranscript.replace(/finish/ig, "")
+      this.setState({
+        inputSearch: finalTranscript.replace(/finish/ig, "").toLowerCase()
+      })
+
+      const transcriptArr = finalTranscript.split(' ')
+      const stopCmd = transcriptArr.slice(-3, -1)
+
+      stopCmd.map(element => {
+        if (element === "finish") {
+          recognition.stop()
+          recognition.onend = () => {
+            this.handleSubmit(event)
+          }
+        }
+      })
+    }
+
+    recognition.onerror = event => {
+      console.log("Error occurred in recognition: " + event.error)
     }
   }
 
@@ -106,25 +165,25 @@ class LandingPage extends React.Component {
   render() {
     const { classes, clearToken, isLogin, name, token, isAdmin, ...rest } = this.props;
     const { isSearched, inputSearch, searchData } = this.state;
-    {
-      if (isSearched) {
-        return <Redirect to=
-          {{
-            pathname: `/replacement/${inputSearch}`,
-            clearToken: clearToken,
-            state:
-            {
-              searchData,
-              name,
-              isLogin,
-              token,
-              inputSearch,
-              isAdmin
-            }
-          }} 
-          />
-      }
+
+    if (isSearched) {
+      return <Redirect to=
+        {{
+          pathname: `/replacement/${inputSearch}`,
+          clearToken: clearToken,
+          state:
+          {
+            searchData,
+            name,
+            isLogin,
+            token,
+            inputSearch,
+            isAdmin
+          }
+        }}
+      />
     }
+
     return (
       <div>
         <Header
@@ -170,6 +229,9 @@ class LandingPage extends React.Component {
                   />
                   <Button justIcon round color="white" style={{ marginTop: 20 }} onClick={this.handleSubmit}>
                     <Search className={classes.searchIcon} />
+                  </Button>
+                  <Button justIcon round color="white" style={{ marginTop: 20 }} onClick={this.toggleListen}>
+                    <KeyboardVoice className={classes.searchIcon} />
                   </Button>
                 </form>
               </GridItem>

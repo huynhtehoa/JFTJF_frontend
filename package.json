@@ -23,6 +23,7 @@
     "react-scripts": "3.0.1",
     "react-scroll-up-button": "^1.6.4",
     "react-slick": "0.24.0",
+    "react-speech-recognition": "^2.0.4",
     "react-spinners": "^0.5.13",
     "react-swipeable-views": "0.13.3",
     "reactstrap": "^8.0.1",

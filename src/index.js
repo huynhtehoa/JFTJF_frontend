@@ -60,6 +60,8 @@ const App = () => {
   const clearToken = () => {
     clearBackendToken()
     sessionStorage.clear("token")
+    setName('')
+    setIsAdmin(false)
     setLogin(false)
   }
 

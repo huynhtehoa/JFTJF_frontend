@@ -51,7 +51,7 @@ class ContactUs extends React.Component {
         }
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         this.setState({
             labelWidth: this.inputLabel.current.offsetWidth
         })

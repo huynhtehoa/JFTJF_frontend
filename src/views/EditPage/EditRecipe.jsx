@@ -51,7 +51,7 @@ class EditRecipe extends React.Component {
         }
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         this.getRestaurant()
     }
 

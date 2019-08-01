@@ -290,12 +290,16 @@ const Replacement = props => {
           <GridItem xs={10} sm={10} md={8}>
             <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingBottom: 150 }}>
               <Typography variant="h6" paragraph>Currently, we don't have any healthy recipes for <i style={{ color: "red" }}><b>{inputSearch}</b></i></Typography>
-              <Button style={{ backgroundColor: "#4a895a" }} size="lg" >
-                <Link to="/login-page" style={{ color: "white" }} >Log in and start to create your own recipes!</Link>
-              </Button>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Link to="/login-page" >
+                  <Button style={{ backgroundColor: "#4a895a", color: "white" }} size="lg" >
+                    Log in and start to create your own recipes!
+                </Button>
+                </Link>
+              </div>
             </div>
           </GridItem>
-        </GridContainer>
+        </GridContainer >
       )
     } else {
       return (
@@ -303,9 +307,13 @@ const Replacement = props => {
           <GridItem xs={10} sm={10} md={8}>
             <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingBottom: 150 }}>
               <Typography variant="h6" paragraph>Currently, we don't have any healthy recipes for <i style={{ color: "red" }}><b>{inputSearch}</b></i></Typography>
-              <Button style={{ backgroundColor: "#4a895a" }} size="lg" >
-                <Link to="/addmore" style={{ color: "white" }} >Add your own recipes now!</Link>
-              </Button>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Link to="/addmore">
+                  <Button style={{ backgroundColor: "#4a895a", color: "white" }} size="lg" >
+                    Add your own recipes now!
+                  </Button>
+                </Link>
+              </div>
             </div>
           </GridItem>
         </GridContainer>
@@ -456,82 +464,84 @@ const Replacement = props => {
                     </IconButton>
                   </Tooltip>
                   <Tooltip
-                  id={`loc-${data.id}`}
-                  title="Where to eat"
-                  placement={window.innerWidth > 959 ? "top" : "left"}
-                  classes={{ tooltip: newClasses.tooltip }}
-                >
-                  <IconButton aria-label="Get Location" onClick={() => handleModal(idx)}>
-                    <RestaurantMenu />
-                  </IconButton>
-                </Tooltip>
-                <Modal
-                  aria-labelledby={`simple-modal-title-${data.id}`}
-                  aria-describedby={`simple-modal-description-${data.id}`}
-                  open={modalToggle[idx]}
-                  onClose={() => modalClose(idx)}
-                >
-                  <Card className={newClasses.paper + " " + "custom-modal"}>
-                    {(!data.res_name)
-                      ?
-                      <GridContainer justify="center">
-                        <GridItem xs={10} sm={10} md={8}>
-                          <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingTop: 200 }}>
-                            <Typography variant="h6" paragraph>There is no restaurant for this recipe!</Typography>
-                            <Typography variant="h6" paragraph>Want to add your premises?</Typography>
-                            <Button style={{ backgroundColor: "#4a895a" }} size="small" >
-                              <Link to="/contactus" style={{ color: "white" }} >Contact us now!</Link>
-                            </Button>
-                          </div>
-                        </GridItem>
-                      </GridContainer>
-                      :
-                      <>
-                        <CardMedia
-                          component="img"
-                          alt={data.res_name}
-                          height="50%"
-                          image={data.res_imgurl}
-                          title={data.res_name}
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            {data.res_name.toUpperCase()}
-                          </Typography>
-                          <p style={{ fontSize: "16px", color: "black" }}>
-                            {data.res_description}
-                          </p>
-                        </CardContent>
-                        <Container>
-                          <Row className="custom-row" >
-                            <Col xs={12} sm={12} md={4}>
-                              <Button size="small" style={{ backgroundColor: "#4a895a", color: "white" }}>
-                                <Place />
-                                <a style={{ color: "white" }} href={`https://maps.google.com/?q=${resLocation}`} target="_blank" >
-                                  Address
+                    id={`loc-${data.id}`}
+                    title="Where to eat"
+                    placement={window.innerWidth > 959 ? "top" : "left"}
+                    classes={{ tooltip: newClasses.tooltip }}
+                  >
+                    <IconButton aria-label="Get Location" onClick={() => handleModal(idx)}>
+                      <RestaurantMenu />
+                    </IconButton>
+                  </Tooltip>
+                  <Modal
+                    aria-labelledby={`simple-modal-title-${data.id}`}
+                    aria-describedby={`simple-modal-description-${data.id}`}
+                    open={modalToggle[idx]}
+                    onClose={() => modalClose(idx)}
+                  >
+                    <Card className={newClasses.paper + " " + "custom-modal"}>
+                      {(!data.res_name)
+                        ?
+                        <GridContainer justify="center">
+                          <GridItem xs={10} sm={10} md={8}>
+                            <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingTop: 200 }}>
+                              <Typography variant="h6" paragraph>There is no restaurant for this recipe!</Typography>
+                              <Typography variant="h6" paragraph>Want to add your premises?</Typography>
+                              <Link to="/contactus">
+                                <Button style={{ backgroundColor: "#4a895a", color: "white" }} size="small" >
+                                  Contact us now!
+                              </Button>
+                              </Link>
+                            </div>
+                          </GridItem>
+                        </GridContainer>
+                        :
+                        <>
+                          <CardMedia
+                            component="img"
+                            alt={data.res_name}
+                            height="50%"
+                            image={data.res_imgurl}
+                            title={data.res_name}
+                          />
+                          <CardContent>
+                            <Typography gutterBottom variant="h5" component="h2">
+                              {data.res_name.toUpperCase()}
+                            </Typography>
+                            <p style={{ fontSize: "16px", color: "black" }}>
+                              {data.res_description}
+                            </p>
+                          </CardContent>
+                          <Container>
+                            <Row className="custom-row" >
+                              <Col xs={12} sm={12} md={4}>
+                                <Button size="small" style={{ backgroundColor: "#4a895a", color: "white" }}>
+                                  <Place />
+                                  <a style={{ color: "white" }} href={`https://maps.google.com/?q=${resLocation}`} target="_blank" >
+                                    Address
                                 </a>
-                              </Button>
-                            </Col>
-                            <Col xs={12} sm={12} md={4}>
-                              <Button size="small" style={{ backgroundColor: "#4a895a", color: "white" }}>
-                                <Phone />
-                                {data.res_phone}
-                              </Button>
-                            </Col>
-                            <Col xs={12} sm={12} md={4}>
-                              <Button size="small" style={{ backgroundColor: "#4a895a" }}>
-                                <a style={{ color: "white" }} href={data.res_website} target="_blank">
-                                  <Public />
-                                  Website
+                                </Button>
+                              </Col>
+                              <Col xs={12} sm={12} md={4}>
+                                <Button size="small" style={{ backgroundColor: "#4a895a", color: "white" }}>
+                                  <Phone />
+                                  {data.res_phone}
+                                </Button>
+                              </Col>
+                              <Col xs={12} sm={12} md={4}>
+                                <Button size="small" style={{ backgroundColor: "#4a895a" }}>
+                                  <a style={{ color: "white" }} href={data.res_website} target="_blank">
+                                    <Public />
+                                    Website
                                 </a>
-                              </Button>
-                            </Col>
-                          </Row>
-                        </Container>
-                      </>
-                    }
-                  </Card>
-                </Modal>
+                                </Button>
+                              </Col>
+                            </Row>
+                          </Container>
+                        </>
+                      }
+                    </Card>
+                  </Modal>
 
                   <IconButton
                     className={clsx(newClasses.expand, {
