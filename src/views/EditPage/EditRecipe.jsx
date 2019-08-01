@@ -254,6 +254,10 @@ class EditRecipe extends React.Component {
         const { isLogin, name } = this.props.location.state
         const { joyfood, junkfood, tip, nutrition, ingredient, method, imgUrl, isEdited } = this.state
 
+        if (!isLogin) {
+            alert("You have to log in to edit recipes!")
+            return <Redirect to="/login-page" />
+        }
         if (isEdited) return <Redirect to="/discover" />
 
         return (

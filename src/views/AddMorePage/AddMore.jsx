@@ -190,6 +190,10 @@ class AddMore extends React.Component {
         }));
 
         const { classes, isLogin, clearToken, name, token, isAdmin, ...rest } = this.props;
+        if (!this.props.isLogin) {
+            alert('Please log in to add recipes!')
+            return <Redirect to='/login-page' />
+        }
         if (this.state.isAdded) return <Redirect to='/discover' />
         return (
             <div>
