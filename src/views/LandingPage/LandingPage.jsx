@@ -19,12 +19,40 @@ import Parallax from "components/Parallax/Parallax.jsx";
 
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
 
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-const recognition = new SpeechRecognition()
 
-recognition.continous = true
-recognition.interimResults = true
-recognition.lang = 'en-US'
+var isChromium = window.chrome;
+var winNav = window.navigator;
+var vendorName = winNav.vendor;
+var isOpera = typeof window.opr !== "undefined";
+var isIEedge = winNav.userAgent.indexOf("Edge") > -1;
+var isIOSChrome = winNav.userAgent.match("CriOS");
+var SpeechRecognition
+var recognition
+
+if (isIOSChrome) {
+  SpeechRecognition = SpeechRecognition || window.webkitSpeechRecognition
+
+  recognition = new SpeechRecognition()
+
+  recognition.continous = true
+  recognition.interimResults = true
+  recognition.lang = 'en-US'
+
+} else if (
+  isChromium !== null &&
+  typeof isChromium !== "undefined" &&
+  vendorName === "Google Inc." &&
+  isOpera === false &&
+  isIEedge === false
+) {
+  SpeechRecognition = SpeechRecognition || window.webkitSpeechRecognition
+
+  recognition = new SpeechRecognition()
+
+  recognition.continous = true
+  recognition.interimResults = true
+  recognition.lang = 'en-US'
+}
 
 const dashboardRoutes = [];
 
@@ -38,7 +66,7 @@ class LandingPage extends React.Component {
       inputSearch: "",
       searchData: [],
       isSearched: false,
-      listening: false
+      listening: false,
     }
   }
 
@@ -162,6 +190,31 @@ class LandingPage extends React.Component {
     }
   }
 
+  VoiceButton = () => {
+    if (isIOSChrome) {
+      return (
+        <Button justIcon round color="white" style={{ marginTop: 20, backgroundColor: (this.state.listening) ? "green" : "white", color: (this.state.listening) ? "white" : "#999999" }} onClick={this.toggleListen}>
+          <KeyboardVoice className={this.props.classes.searchIcon} />
+        </Button>
+      )
+
+    } else if (
+      isChromium !== null &&
+      typeof isChromium !== "undefined" &&
+      vendorName === "Google Inc." &&
+      isOpera === false &&
+      isIEedge === false
+    ) {
+      return (
+        <Button justIcon round color="white" style={{ marginTop: 20, backgroundColor: (this.state.listening) ? "green" : "white", color: (this.state.listening) ? "white" : "#999999" }} onClick={this.toggleListen}>
+          <KeyboardVoice className={this.props.classes.searchIcon} />
+        </Button>
+      )
+    } else {
+      return null
+    }
+  }
+
   render() {
     const { classes, clearToken, isLogin, name, token, isAdmin, ...rest } = this.props;
     const { isSearched, inputSearch, searchData } = this.state;
@@ -230,9 +283,7 @@ class LandingPage extends React.Component {
                   <Button justIcon round color="white" style={{ marginTop: 20 }} onClick={this.handleSubmit}>
                     <Search className={classes.searchIcon} />
                   </Button>
-                  <Button justIcon round color="white" style={{ marginTop: 20, backgroundColor: (this.state.listening) ? "green" : "white", color: (this.state.listening) ? "white" : "#999999" }} onClick={this.toggleListen}>
-                    <KeyboardVoice className={classes.searchIcon} />
-                  </Button>
+                  <this.VoiceButton />
                 </form>
               </GridItem>
             </GridContainer>
