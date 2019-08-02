@@ -88,7 +88,6 @@ class LoginPage extends React.Component {
   }
 
   render() {
-    const open = Boolean(this.state.anchorEl)
     const { classes, isLogin, clearToken, getWithToken, ...rest } = this.props;
     if (isLogin === true) {
       return <Redirect to="/" />
@@ -97,6 +96,7 @@ class LoginPage extends React.Component {
       getWithToken()
       return <Redirect to="/" />
     }
+    const open = Boolean(this.state.anchorEl)
     return (
       <div>
         <Header

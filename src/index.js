@@ -36,7 +36,7 @@ const App = () => {
       setLogin(true)
     }
     const existingToken = localStorage.getItem('token');
-    if (existingToken) {
+    if (existingToken && existingToken !== "undefined") {
       setToken(existingToken)
       setLogin(true)
     }
