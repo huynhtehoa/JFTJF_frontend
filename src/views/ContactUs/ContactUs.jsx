@@ -78,7 +78,6 @@ class ContactUs extends React.Component {
         } else {
             this.setState({
                 isNameValid: true,
-                anchorEl: null
             })
         }
 
@@ -91,7 +90,6 @@ class ContactUs extends React.Component {
         } else {
             this.setState({
                 isEmailValid: true,
-                anchorEl: null
             })
         }
 
