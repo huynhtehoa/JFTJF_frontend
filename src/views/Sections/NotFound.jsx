@@ -16,12 +16,22 @@ class NotFound extends React.Component {
 
         return (
             <div class="youtube">
-                    <YouTube
-                        videoId="Z8H-XDij7CI"
-                        opts={opts}
-                    />
+                <YouTube
+                    videoId="Z8H-XDij7CI"
+                    opts={opts}
+                    onReady={this._onReady}
+                    onPlaybackRateChange={this._getPlaybackRate}
+                />
             </div>
         );
+    }
+
+    _onReady(e) {
+        e.target.setPlaybackRate(2)
+    }
+    
+    _getPlaybackRate(e) {
+        e.target.playVideo();
     }
 }
 
