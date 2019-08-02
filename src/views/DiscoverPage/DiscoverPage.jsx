@@ -123,7 +123,6 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
   const [position, setPosition] = useState({})
   const [isDeleted, setIsDeleted] = useState(false)
   const [modalToggle, setModalToggle] = useState([])
-  const [resLocation, setResLocation] = useState([])
 
   const handlePopClose = () => {
     setAnchorMs(null)
@@ -362,9 +361,7 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
   let RenderCard = () => {
     return searchData.map((data, idx) => {
       if (data.view_allowed === true) {
-        if (data.res_name) {
-          setResLocation(data.res_address.replace(/ /g, "%20").replace(/,/g, ''))
-        }
+
         return (
           <GridItem key={data.id} xs={12} sm={12} md={6} className={classes.navWrapper}>
             <Card className={classes.card} style={{ border: "1px solid gray" }}>
@@ -516,12 +513,12 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
                         <Container>
                           <Row className="custom-row" >
                             <Col xs={12} sm={12} md={4}>
-                              <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
-                                <Place />
-                                <a style={{ color: "white" }} href={`https://maps.google.com/?q=${resLocation}`} target="_blank" >
+                              <a href={`https://maps.google.com/?q=${data.res_address.replace(/ /g, "%20").replace(/,/g, '')}`} target="_blank" >
+                                <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
+                                  <Place />
                                   Address
-                                </a>
-                              </Button>
+                                </Button>
+                              </a>
                             </Col>
                             <Col xs={12} sm={12} md={4}>
                               <Button style={{ backgroundColor: "#4a895a", color: "white" }}>

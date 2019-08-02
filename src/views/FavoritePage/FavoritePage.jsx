@@ -133,7 +133,6 @@ const FavoritePage = (props) => {
     const [position, setPosition] = useState({})
     const [isDeleted, setIsDeleted] = useState(false)
     const [modalToggle, setModalToggle] = useState([])
-    const [resLocation, setResLocation] = useState([])
 
     const handlePopClose = () => {
         setAnchorMs(null)
@@ -297,9 +296,7 @@ const FavoritePage = (props) => {
     let RenderCard = () => {
         return searchData.map((data, idx) => {
             if (data.view_allowed === true) {
-                if (data.res_name) {
-                    setResLocation(data.res_address.replace(/ /g, "%20").replace(/,/g, ''))
-                }
+
                 return (
                     <GridItem key={data.id} xs={12} sm={12} md={6} className={classes.navWrapper}>
                         <Card className={classes.card}>
@@ -423,9 +420,11 @@ const FavoritePage = (props) => {
                                                     <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingTop: 200 }}>
                                                         <Typography variant="h6" paragraph>There is no restaurant for this recipe!</Typography>
                                                         <Typography variant="h6" paragraph>Want to add your premises?</Typography>
-                                                        <Button style={{ backgroundColor: "#4a895a" }} >
-                                                            <Link to="/contactus" style={{ color: "white" }} >Contact us now!</Link>
+                                                        <Link to="/contactus" >
+                                                            <Button style={{ backgroundColor: "#4a895a", color: "white" }} >
+                                                                Contact us now!
                                                         </Button>
+                                                        </Link>
                                                     </div>
                                                 </GridItem>
                                             </GridContainer>
@@ -449,12 +448,12 @@ const FavoritePage = (props) => {
                                                 <Container>
                                                     <Row className="custom-row" >
                                                         <Col xs={12} sm={12} md={4}>
-                                                            <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
-                                                                <Place />
-                                                                <a style={{ color: "white" }} href={`https://maps.google.com/?q=${resLocation}`} target="_blank" >
+                                                            <a href={`https://maps.google.com/?q=${data.res_address.replace(/ /g, "%20").replace(/,/g, '')}`} target="_blank" >
+                                                                <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
+                                                                    <Place />
                                                                     Address
-                                </a>
-                                                            </Button>
+                                                                </Button>
+                                                            </a>
                                                         </Col>
                                                         <Col xs={12} sm={12} md={4}>
                                                             <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
@@ -463,12 +462,12 @@ const FavoritePage = (props) => {
                                                             </Button>
                                                         </Col>
                                                         <Col xs={12} sm={12} md={4}>
-                                                            <Button style={{ backgroundColor: "#4a895a" }}>
-                                                                <a style={{ color: "white" }} href={data.res_website} target="_blank">
+                                                            <a href={data.res_website} target="_blank">
+                                                                <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
                                                                     <Public />
                                                                     Website
-                                </a>
-                                                            </Button>
+                                                                </Button>
+                                                            </a>
                                                         </Col>
                                                     </Row>
                                                 </Container>
@@ -610,9 +609,11 @@ const FavoritePage = (props) => {
                                             <GridItem xs={10} sm={10} md={8}>
                                                 <div style={{ height: "45vh", justifyContent: "center", textAlign: "center", display: "flex", flexDirection: "column", paddingBottom: 150 }}>
                                                     <Typography variant="h6" paragraph>There is no recipe in your favorite list!</Typography>
-                                                    <Button style={{ backgroundColor: "#4a895a" }} >
-                                                        <Link to="/discover" style={{ color: "white" }} >Discover Now</Link>
+                                                    <Link to="/discover">
+                                                        <Button style={{ backgroundColor: "#4a895a", color: "white" }} >
+                                                            Discover now
                                                     </Button>
+                                                    </Link>
                                                 </div>
                                             </GridItem>
                                         </GridContainer>

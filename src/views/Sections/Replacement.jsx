@@ -125,7 +125,6 @@ const Replacement = props => {
   const [position, setPosition] = useState({})
   const [isDeleted, setIsDeleted] = useState(false)
   const [modalToggle, setModalToggle] = useState([])
-  const [resLocation, setResLocation] = useState([])
 
   const handleLikeClick = (e, idx, id, joyfood) => {
     let clone = isLiked.slice(0)
@@ -361,9 +360,7 @@ const Replacement = props => {
       :
       cloneSearchData.map((data, idx) => {
         if (data.view_allowed) {
-          if (data.res_name) {
-            setResLocation(data.res_address.replace(/ /g, "%20").replace(/,/g, ''))
-          }
+
           return (
             <GridItem key={data.id} xs={12} sm={12} md={6} className={classes.navWrapper}>
               <Card className={classes.card}>
@@ -515,12 +512,12 @@ const Replacement = props => {
                           <Container>
                             <Row className="custom-row" >
                               <Col xs={12} sm={12} md={4}>
-                                <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
-                                  <Place />
-                                  <a style={{ color: "white" }} href={`https://maps.google.com/?q=${resLocation}`} target="_blank" >
+                                <a href={`https://maps.google.com/?q=${data.res_address.replace(/ /g, "%20").replace(/,/g, '')}`} target="_blank" >
+                                  <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
+                                    <Place />
                                     Address
+                                  </Button>
                                 </a>
-                                </Button>
                               </Col>
                               <Col xs={12} sm={12} md={4}>
                                 <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
@@ -529,12 +526,12 @@ const Replacement = props => {
                                 </Button>
                               </Col>
                               <Col xs={12} sm={12} md={4}>
-                                <Button style={{ backgroundColor: "#4a895a" }}>
-                                  <a style={{ color: "white" }} href={data.res_website} target="_blank">
+                                <a href={data.res_website} target="_blank">
+                                  <Button style={{ backgroundColor: "#4a895a", color: "white" }}>
                                     <Public />
                                     Website
+                                  </Button>
                                 </a>
-                                </Button>
                               </Col>
                             </Row>
                           </Container>
