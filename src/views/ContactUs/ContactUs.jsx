@@ -67,12 +67,15 @@ class ContactUs extends React.Component {
     sendContact = e => {
 
         e.preventDefault();
+
+        let currentTarget = e.currentTarget;
+
         const { name, email } = this.state
 
         if (name.length < 3) {
             this.setState({
                 isNameValid: false,
-                anchorEl: e.currentTarget
+                anchorEl: currentTarget
             })
             setTimeout(() => this.handleClose(), 2000)
         } else {
@@ -84,7 +87,7 @@ class ContactUs extends React.Component {
         if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) === false) {
             this.setState({
                 isEmailValid: false,
-                anchorEl: e.currentTarget
+                anchorEl: currentTarget
             })
             setTimeout(() => this.handleClose(), 2000)
         } else {
@@ -95,11 +98,12 @@ class ContactUs extends React.Component {
 
         this.setState({
             isFinished: true
-        }, () => this.finishFunction(e))
+        }, () => this.finishFunction(currentTarget))
     }
 
-    finishFunction = async e => {
+    finishFunction = async currentTarget => {
         const { name, email, company, phone, note, business, isEmailValid, isNameValid } = this.state
+
 
         if (isEmailValid === true && isNameValid === true) {
             let url = 'https://jftjf-backend.herokuapp.com/contactus'
@@ -121,7 +125,7 @@ class ContactUs extends React.Component {
             })
             this.setState({
                 isSent: true,
-                anchorEl: e.currentTarget,
+                anchorEl: currentTarget,
                 name: '',
                 company: '',
                 email: '',

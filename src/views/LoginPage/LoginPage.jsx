@@ -63,7 +63,8 @@ class LoginPage extends React.Component {
   }
 
   handleSubmit = async e => {
-    e.preventDefault();
+    let currentTarget = e.currentTarget;
+    
     let url = 'https://jftjf-backend.herokuapp.com/signin'
     let data = {
       'name': this.state.username,
@@ -77,12 +78,12 @@ class LoginPage extends React.Component {
       }
     })
     let jsonData = await response.json()
-
+    
     await localStorage.setItem('token', jsonData.token)
     if (jsonData.success === 'true') {
       this.setState({ loginStatus: true })
     } else {
-      this.setState({ anchorEl: e.currentTarget })
+      this.setState({ anchorEl: currentTarget })
       setTimeout(() => this.handleClose(), 2000)
     }
   }
