@@ -52,7 +52,7 @@ class RegisterPage extends React.Component {
       isEmailExist: false,
       isUsernameExist: false,
       isUsernameShort: false,
-      isPasswordShort: true,
+      isPasswordShort: false,
       isFinished: false,
       isRegistered: false,
       anchorEl: null,
@@ -99,44 +99,17 @@ class RegisterPage extends React.Component {
 
   handleSubmit = e => {
     this.getAllUser()
-    const { username, email, password, confirmPassword, userProfile } = this.state
+    const { username, email, password, confirmPassword, isChecked, userProfile } = this.state
 
-    if (password.length < 3 || /^\s*$/.test(password) == true) {
-      this.setState({
-        isPasswordShort: true,
-        anchorEl: e.currentTarget
-      })
-      setTimeout(() => this.handleClose(), 2000)
-    } else {
-      this.setState({
-        isPasswordShort: false,
-        anchorEl: null
-      })
-    }
-
-    if (password !== confirmPassword) {
-      this.setState({
-        isMatch: false,
-        anchorEl: e.currentTarget
-      })
-      setTimeout(() => this.handleClose(), 2000)
-    } else {
-      this.setState({
-        isMatch: true,
-        anchorEl: null
-      })
-    }
-
-    if (username.length < 3 || /^\s*$/.test(username) == true) {
+    if (username.length < 3 || /^\s*$/.test(username) === true) {
       this.setState({
         isUsernameShort: true,
         anchorEl: e.currentTarget
       })
       setTimeout(() => this.handleClose(), 2000)
-    } else {
+    } else if (username.length >= 3 || /^\s*$/.test(username) === false) {
       this.setState({
         isUsernameShort: false,
-        anchorEl: null
       })
     }
 
@@ -148,10 +121,9 @@ class RegisterPage extends React.Component {
         })
         setTimeout(() => this.handleClose(), 2000)
         break;
-      } else {
+      } else if (userProfile[i].name !== username) {
         this.setState({
           isUsernameExist: false,
-          anchorEl: null
         })
       }
     }
@@ -164,10 +136,10 @@ class RegisterPage extends React.Component {
         })
         setTimeout(() => this.handleClose(), 2000)
         break;
-      } else {
+      } else if (userProfile[i].email !== email) {
         this.setState({
           isEmailExist: false,
-          anchorEl: null
+
         })
       }
     }
@@ -178,11 +150,41 @@ class RegisterPage extends React.Component {
         anchorEl: e.currentTarget
       })
       setTimeout(() => this.handleClose(), 2000)
-    } else {
+    } else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) === true) {
       this.setState({
         isValid: true,
-        anchorEl: null
       })
+    }
+
+    if (password.length < 3 || /^\s*$/.test(password) === true) {
+      this.setState({
+        isPasswordShort: true,
+        anchorEl: e.currentTarget
+      })
+      setTimeout(() => this.handleClose(), 2000)
+    } else if (password.length >= 3 || /^\s*$/.test(password) === false) {
+      this.setState({
+        isPasswordShort: false,
+      })
+    }
+
+    if (password !== confirmPassword) {
+      this.setState({
+        isMatch: false,
+        anchorEl: e.currentTarget
+      })
+      setTimeout(() => this.handleClose(), 2000)
+    } else if (password === confirmPassword) {
+      this.setState({
+        isMatch: true,
+      })
+    }
+
+    if (isChecked === false) {
+      this.setState({
+        anchorEl: e.currentTarget
+      })
+      setTimeout(() => this.handleClose(), 2000)
     }
 
     this.setState({
