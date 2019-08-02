@@ -116,33 +116,33 @@ class LoginPage extends React.Component {
         >
           <div className={classes.container}>
             <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={4}>
-                <Popover
-                  open={open}
-                  anchorEl={this.state.anchorEl}
-                  onClose={this.handleClose}
-                  anchorReference="anchorEl"
-                  anchorEl={{ top: 1000 }}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                >
-                  <SnackbarContent
-                    message={
-                      <span>
-                        Incorrect username or password
+              <Popover
+                open={open}
+                anchorEl={this.state.anchorEl}
+                onClose={this.handleClose}
+                anchorReference="anchorEl"
+                anchorEl={{ top: 1000 }}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+              >
+                <SnackbarContent
+                  message={
+                    <span>
+                      Incorrect username or password
                       </span>
-                    }
-                    close
-                    color="warning"
-                    icon={Warning}
-                  />
-                </Popover>
+                  }
+                  close
+                  color="warning"
+                  icon={Warning}
+                />
+              </Popover>
+              <GridItem xs={12} sm={12} md={4}>
                 <Card className={classes[this.state.cardAnimaton]}>
                   <CardHeader style={{ backgroundColor: "#4a895a", color: "white" }} className={classes.cardHeader}>
                     <h4>Login</h4>
