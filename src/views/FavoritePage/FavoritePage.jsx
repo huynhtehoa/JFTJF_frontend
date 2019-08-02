@@ -231,7 +231,7 @@ const FavoritePage = (props) => {
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${sessionStorage.getItem('token')}`
+                "Authorization": `Token ${localStorage.getItem('token')}`
             }
         })
         setIsDeleted(true)
@@ -251,7 +251,7 @@ const FavoritePage = (props) => {
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${sessionStorage.getItem('token')}`
+                "Authorization": `Token ${localStorage.getItem('token')}`
             }
         })
 
@@ -267,7 +267,7 @@ const FavoritePage = (props) => {
             method: 'GET',
             headers: {
                 "content-Type": "application/json",
-                "Authorization": `Token ${sessionStorage.getItem('token')}`
+                "Authorization": `Token ${localStorage.getItem('token')}`
             }
         })
         let jsonData = await response.json()

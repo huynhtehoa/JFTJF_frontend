@@ -78,7 +78,7 @@ class LoginPage extends React.Component {
     })
     let jsonData = await response.json()
 
-    await sessionStorage.setItem('token', jsonData.token)
+    await localStorage.setItem('token', jsonData.token)
     if (jsonData.success === 'true') {
       this.setState({ loginStatus: true })
     } else {

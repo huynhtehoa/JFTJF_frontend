@@ -31,11 +31,11 @@ const App = () => {
   useEffect(() => {
     const accessToken = (window.location.search.split("=")[0] === "?api_key") ? window.location.search.split("=")[1] : null;
     if (accessToken) {
-      sessionStorage.setItem('token', accessToken.replace('?api_key=', ''))
+      localStorage.setItem('token', accessToken.replace('?api_key=', ''))
       setToken(accessToken)
       setLogin(true)
     }
-    const existingToken = sessionStorage.getItem('token');
+    const existingToken = localStorage.getItem('token');
     if (existingToken) {
       setToken(existingToken)
       setLogin(true)
@@ -49,7 +49,7 @@ const App = () => {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
-        'Authorization': `Token ${sessionStorage.getItem('token')}`,
+        'Authorization': `Token ${localStorage.getItem('token')}`,
       }
     })
     let jsonData = await response.json()
@@ -60,7 +60,7 @@ const App = () => {
 
   const clearToken = () => {
     clearBackendToken()
-    sessionStorage.clear("token")
+    localStorage.clear("token")
     setName('')
     setIsAdmin(false)
     setLogin(false)
@@ -71,7 +71,7 @@ const App = () => {
     await fetch(url, {
       headers: {
         'Content-type': 'application/json',
-        'Authorization': `Token ${sessionStorage.getItem('token')}`,
+        'Authorization': `Token ${localStorage.getItem('token')}`,
       }
     })
   }

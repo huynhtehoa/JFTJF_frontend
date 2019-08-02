@@ -100,7 +100,7 @@ class EditRecipe extends React.Component {
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${sessionStorage.getItem('token')}`
+                "Authorization": `Token ${localStorage.getItem('token')}`
             }
         })
 
@@ -120,7 +120,7 @@ class EditRecipe extends React.Component {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${sessionStorage.getItem('token')}`
+                "Authorization": `Token ${localStorage.getItem('token')}`
             }
         })
         let jsonData = await response.json()
@@ -170,7 +170,7 @@ class EditRecipe extends React.Component {
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${sessionStorage.getItem('token')}`
+                "Authorization": `Token ${localStorage.getItem('token')}`
             }
         })
     }
@@ -193,7 +193,7 @@ class EditRecipe extends React.Component {
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${sessionStorage.getItem('token')}`
+                "Authorization": `Token ${localStorage.getItem('token')}`
             }
         })
     }

@@ -229,7 +229,7 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Token ${sessionStorage.getItem('token')}`
+        "Authorization": `Token ${localStorage.getItem('token')}`
       }
     })
     setIsDeleted(true)
@@ -252,7 +252,7 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Token ${sessionStorage.getItem('token')}`
+          "Authorization": `Token ${localStorage.getItem('token')}`
         }
       })
 
@@ -297,7 +297,7 @@ const ProfilePage = ({ classes, isLogin, clearToken, name, token, isAdmin, ...re
       method: 'GET',
       headers: {
         "content-Type": "application/json",
-        "Authorization": `Token ${sessionStorage.getItem('token')}`
+        "Authorization": `Token ${localStorage.getItem('token')}`
       }
     })
     let jsonData = await response.json()
