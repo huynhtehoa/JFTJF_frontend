@@ -19,14 +19,9 @@ class NotFound extends React.Component {
                     <YouTube
                         videoId="Z8H-XDij7CI"
                         opts={opts}
-                        onReady={this._onReady}
                     />
             </div>
         );
-    }
-
-    _onReady(event) {
-        event.target.playVideo();
     }
 }
 
