@@ -86,7 +86,7 @@ const App = () => {
         <Route exact path="/register-page" component={() => <RegisterPage token={token} isAdmin={isAdmin} name={name} isLogin={isLogin} />} />
         <Route exact path="/login-page" component={() => <LoginPage isLogin={isLogin} getWithToken={getWithToken} clearToken={clearToken} name={name} token={token} isAdmin={isAdmin} />} />
         <Route exact path="/forget-pw" component={ForgetPw} />
-        <Route exact path="/reset-pw/:token" component={ResetPw} />
+        <Route exact path="/reset-pw/" component={ResetPw} />
         <Route exact path="/change-pw/" component={ChangePw} />
         <Route exact path="/discover" component={() => <DiscoverPage isLogin={isLogin} getWithToken={getWithToken} clearToken={clearToken} name={name} token={token} isAdmin={isAdmin} />} />
         <Route exact path="/edit/recipe/:dataId" component={EditRecipe} />
