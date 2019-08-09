@@ -18,8 +18,6 @@ import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
-import { lineHeight } from "@material-ui/system";
-
 
 var isChromium = window.chrome;
 var winNav = window.navigator;
@@ -259,9 +257,9 @@ class LandingPage extends React.Component {
                 <h1 className={classes.title + " " + "dropcap"} style={{ lineHeight: 1.15 }}>Junk Food <br /> oy Food <span style={{ fontSize: 20, verticalAlign: 26 }}>to</span></h1>
                 <h4>
                   Want a healthier lifestyle? Start with your food today! Simple type in your favorite junk food, press Enter and voilà! Here comes the magic!
-                  <br />
-                  <br />
-                  To use speech-to-text (Chrome browser only): Click <KeyboardVoice className={this.props.classes.searchIcon} />. Say out loud your favorite junk food then say the magical word "FINISH"!
+                  <div>
+                    To use speech-to-text (Chrome browser only): Click <KeyboardVoice className={this.props.classes.searchIcon} />. Say out loud your favorite junk food then say the magical word "FINISH"!
+                  </div>
                 </h4>
                 <br />
                 <form style={{ display: "flex" }} onSubmit={this.handleSubmit}>
