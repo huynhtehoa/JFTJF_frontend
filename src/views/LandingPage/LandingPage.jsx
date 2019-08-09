@@ -18,6 +18,7 @@ import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPage.jsx";
+import { lineHeight } from "@material-ui/system";
 
 
 var isChromium = window.chrome;
@@ -255,7 +256,7 @@ class LandingPage extends React.Component {
           <div className={classes.container}>
             <GridContainer>
               <GridItem xs={12} sm={12} md={6}>
-                <h1 className={classes.title}>Junk Food to Joy Food</h1>
+                <h1 className={classes.title + " " + "dropcap"} style={{ lineHeight: 1.15 }}>Junk Food <br /> oy Food <span style={{ fontSize: 20, verticalAlign: 26 }}>to</span></h1>
                 <h4>
                   Want a healthier lifestyle? Start with your food today! Simple type in your favorite junk food, press Enter and voilà! Here comes the magic!
                   <br />

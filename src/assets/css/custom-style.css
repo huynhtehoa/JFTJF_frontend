@@ -166,3 +166,11 @@
     padding: 0;
     margin: 0;
 }
+
+.dropcap:first-child:first-letter {
+    color: white;
+    float: left;
+    font-size: 130px;
+    line-height: 90px;
+    padding-top: 20px;
+}
