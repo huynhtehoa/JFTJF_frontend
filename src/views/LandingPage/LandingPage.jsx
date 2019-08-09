@@ -7,6 +7,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 import Search from "@material-ui/icons/Search";
 import KeyboardVoice from "@material-ui/icons/KeyboardVoice";
+import Icon from '@material-ui/core/Icon';
 
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Header from "components/Header/Header.jsx";
@@ -189,6 +190,31 @@ class LandingPage extends React.Component {
     }
   }
 
+  VoiceInstruction = () => {
+    if (isIOSChrome) {
+      return(
+        <div style={{ marginTop: 20 }}>
+          To use speech-to-text: Click <KeyboardVoice  className={this.props.classes.searchIcon}/>. Say out loud your favorite junk food then say the magical word "FINISH"!
+        </div>
+      )
+    } else if (
+      isChromium !== null &&
+      typeof isChromium !== "undefined" &&
+      vendorName === "Google Inc." &&
+      isOpera === false &&
+      isIEedge === false
+    ) {
+      return(
+        <div style={{ marginTop: 20 }}>
+          To use speech-to-text: Click <KeyboardVoice  className={this.props.classes.searchIcon}/>. Say out loud your favorite junk food then say the magical word "FINISH"!
+        </div>
+      )    
+    } else {
+      return null
+    }
+  }
+
+
   VoiceButton = () => {
     if (isIOSChrome) {
       return (
@@ -257,9 +283,7 @@ class LandingPage extends React.Component {
                 <h1 className={classes.title + " " + "dropcap"} style={{ lineHeight: 1.15 }}>Junk Food <br /> oy Food <span style={{ fontSize: 20, verticalAlign: 26 }}>to</span></h1>
                 <h4>
                   Want a healthier lifestyle? Start with your food today! Simple type in your favorite junk food, press Enter and voilà! Here comes the magic!
-                  <div>
-                    To use speech-to-text (Chrome browser only): Click <KeyboardVoice className={this.props.classes.searchIcon} />. Say out loud your favorite junk food then say the magical word "FINISH"!
-                  </div>
+                  <this.VoiceInstruction />
                 </h4>
                 <br />
                 <form style={{ display: "flex" }} onSubmit={this.handleSubmit}>
