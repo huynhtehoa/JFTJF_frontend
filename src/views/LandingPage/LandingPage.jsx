@@ -257,7 +257,10 @@ class LandingPage extends React.Component {
               <GridItem xs={12} sm={12} md={6}>
                 <h1 className={classes.title}>Junk Food to Joy Food</h1>
                 <h4>
-                  Want to live a healthier lifestyle? Start with your food now! Simply input any food items and we will recommend you a more deli and nutritious one!
+                  Want a healthier lifestyle? Start with your food today! Simple type in your favorite junk food, press Enter and voilà! Here comes the magic!
+                  <br />
+                  <br />
+                  To use speech-to-text (Chrome browser only): Click <KeyboardVoice className={this.props.classes.searchIcon} />. Say out loud your favorite junk food then say the magical word "FINISH"!
                 </h4>
                 <br />
                 <form style={{ display: "flex" }} onSubmit={this.handleSubmit}>
