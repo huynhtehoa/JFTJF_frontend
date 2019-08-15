@@ -29,7 +29,7 @@ const App = () => {
   const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
-    if (window.location.search.includes("=?api_key")) {
+    if (window.location.search.includes("?api_key=")) {
       const accessToken = (window.location.search.split("=")[0] === "?api_key") ? window.location.search.split("=")[1] : null;
       if (accessToken) {
         localStorage.setItem('token', accessToken.replace('?api_key=', ''))
