@@ -29,18 +29,20 @@ const App = () => {
   const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
-    const accessToken = (window.location.search.split("=")[0] === "?api_key") ? window.location.search.split("=")[1] : null;
-    if (accessToken) {
-      localStorage.setItem('token', accessToken.replace('?api_key=', ''))
-      setToken(accessToken)
-      setLogin(true)
+    if (window.location.search.includes("=?api_key")) {
+      const accessToken = (window.location.search.split("=")[0] === "?api_key") ? window.location.search.split("=")[1] : null;
+      if (accessToken) {
+        localStorage.setItem('token', accessToken.replace('?api_key=', ''))
+        setToken(accessToken)
+        setLogin(true)
+      }
+      const existingToken = localStorage.getItem('token');
+      if (existingToken && existingToken !== "undefined") {
+        setToken(existingToken)
+        setLogin(true)
+      }
+      getWithToken()
     }
-    const existingToken = localStorage.getItem('token');
-    if (existingToken && existingToken !== "undefined") {
-      setToken(existingToken)
-      setLogin(true)
-    }
-    getWithToken()
   }, [])
 
   const getWithToken = async () => {
