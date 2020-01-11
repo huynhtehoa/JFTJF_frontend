@@ -95,6 +95,5 @@ BodyContent.propTypes = {
   classes: PropTypes.object,
   setInputSearch: PropTypes.func,
   search: PropTypes.func,
-  loginSearch: PropTypes.func,
   isLogin: PropTypes.bool
 };

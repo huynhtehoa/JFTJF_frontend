@@ -32,7 +32,7 @@ const LandingPage = ({
   }, [isSearched]);
 
   const search = async () => {
-    let url = "https://127.0.0.1:5000/search";
+    let url = "https://jftjf-backend.herokuapp.com/search";
     let data = {
       inputSearch
     };
