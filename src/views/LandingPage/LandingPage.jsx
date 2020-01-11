@@ -31,9 +31,8 @@ const LandingPage = ({
     setIsSearched(false);
   }, [isSearched]);
 
-  // TO-DO: split search functions to their own class. refactor back-end to unify search and loginSearch
   const search = async () => {
-    let url = "https://jftjf-backend.herokuapp.com/search";
+    let url = "https://127.0.0.1:5000/search";
     let data = {
       inputSearch
     };
@@ -42,25 +41,6 @@ const LandingPage = ({
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json"
-      }
-    });
-    let jsonData = await response.json();
-
-    setSearchData(jsonData.results);
-    setIsSearched(true);
-  };
-
-  const loginSearch = async () => {
-    let url = "https://jftjf-backend.herokuapp.com/searchlogin";
-    let data = {
-      inputSearch
-    };
-    let response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${localStorage.getItem("token")}`
       }
     });
     let jsonData = await response.json();
@@ -108,8 +88,6 @@ const LandingPage = ({
       <BodyContent
         classes={classes}
         setInputSearch={setInputSearch}
-        isLogin={isLogin}
-        loginSearch={loginSearch}
         search={search}
       />
       <Footer />

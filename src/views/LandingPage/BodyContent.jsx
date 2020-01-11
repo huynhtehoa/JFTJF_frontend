@@ -13,13 +13,7 @@ import VoiceInstruction from "./Voice/VoiceInstruction";
 
 import handleListen from "./Voice/VoiceHandler";
 
-export default function BodyContent({
-  classes,
-  setInputSearch,
-  isLogin,
-  loginSearch,
-  search
-}) {
+export default function BodyContent({ classes, setInputSearch, search }) {
   const [isListening, setIsListening] = useState(false);
 
   const toggleListen = () => {
@@ -33,11 +27,7 @@ export default function BodyContent({
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (isLogin) {
-      loginSearch();
-    } else {
-      search();
-    }
+    search();
   };
 
   return (
